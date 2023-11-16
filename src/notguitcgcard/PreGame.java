@@ -354,6 +354,8 @@ public class PreGame extends JFrame{
 	public void draw() {
 		deck.draw(1,hand,newcardx);
 		hand.hand.get(hand.gethandsize()-1).setGameState(gameState);
+		hand.hand.get(hand.gethandsize()-1).setField(field);
+		hand.hand.get(hand.gethandsize()-1).setHand(hand);
 		add(hand.hand.get(hand.gethandsize()-1).cardb);
 		newcardx+=200;
 		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardb, 1);
@@ -377,6 +379,9 @@ public class PreGame extends JFrame{
 			g.drawImage(field1image,200,300,null);
 			for(int i=0;i<hand.gethandsize();i++) {
 				hand.hand.get(i).cardb.setBounds(hand.hand.get(i).x,hand.hand.get(i).y,150,230);
+			}
+			for(int i=0;i<field.getfieldsize();i++) {
+				field.field.get(i).cardb.setBounds(field.field.get(i).x,field.field.get(i).y,150,230);
 			}
 			la.setText("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5));
 			//////렉걸리면 이부분 스레드 따로해야함

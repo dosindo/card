@@ -14,11 +14,19 @@ public class Card extends Thread{
 	int x,y;
 	int newcardx;
 	ArrayList<Integer> gameState;
+	Field field;
+	Hand hand;
 	String state = "notinscreen";
 	ImageIcon card1Image;
 	JButton cardb = new JButton();
 	public void setGameState(ArrayList<Integer> gameState) {
 		this.gameState = gameState;
+	}
+	public void setField(Field field){
+		this.field = field;
+	}
+	public void setHand(Hand hand){
+		this.hand = hand;
 	}
 	public void setState(String state) {
 		this.state = state;
@@ -100,11 +108,15 @@ public class Card extends Thread{
 					int ac = gameState.get(0);
 					gameState.set(0, ac-1);
 					state="infield";
+					this.sommon();
+
 					x=50+gameState.get(2)*150;
 					y=300;
 					gameState.set(3, 0);
 					gameState.set(2, 0);
 					gameState.set(4,1);
+					//hand.sommon(this);
+					//field.toField(this);
 				}else if(state.equals("sommoning")&&gameState.get(3)==0) {
 					
 					state="inhand";
@@ -114,7 +126,7 @@ public class Card extends Thread{
 					gameState.set(2, 0);
 				}
 				try {
-					Thread.sleep(10);
+					Thread.sleep(1);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

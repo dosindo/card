@@ -61,8 +61,8 @@ public class PreGame extends JFrame{
 	
 	Container container = getContentPane();
 	
-	final int SCREEN_WIDTH = 1280;
-	final int SCREEN_HEIGHT = 720;
+	final int SCREEN_WIDTH = 1280; //1540;
+	final int SCREEN_HEIGHT = 720; //815;
 	
 	final int DRAWPHASE = 0;
 	final int MAINPHASE = 1;
@@ -126,7 +126,7 @@ public class PreGame extends JFrame{
 		setBackground(new Color(0,0,50,0));//배경하양
 		setLayout(null);//위치 고정
 		
-		exitButton.setBounds(1240,0,30,30);//x,y,크기
+		exitButton.setBounds(1240,0,30,30);//x,y,크기 1505, 0 ...
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
 		exitButton.setFocusPainted(false);
@@ -150,7 +150,7 @@ public class PreGame extends JFrame{
 		});
 		add(exitButton);
 		
-		startButton.setBounds(400,400,400,100);
+		startButton.setBounds(400,400,400,100); // 590, 400,...
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -177,7 +177,7 @@ public class PreGame extends JFrame{
 		});
 		add(startButton);
 		
-		deckScreenButton.setBounds(400,550,400,100);
+		deckScreenButton.setBounds(400,550,400,100); // 590 ...
 		deckScreenButton.setBorderPainted(false);
 		deckScreenButton.setContentAreaFilled(false);
 		deckScreenButton.setFocusPainted(false);
@@ -234,7 +234,7 @@ public class PreGame extends JFrame{
 		
 		
 
-		menuBar.setBounds(0,0,1280,30);//위치와 크기
+		menuBar.setBounds(0,0,1280,30);//위치와 크기 0, 0, 1540...
 		menuBar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e)

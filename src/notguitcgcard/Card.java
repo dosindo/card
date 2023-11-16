@@ -115,8 +115,8 @@ public class Card extends Thread{
 					gameState.set(3, 0);
 					gameState.set(2, 0);
 					gameState.set(4,1);
-					//hand.sommon(this);
-					//field.toField(this);
+					hand.sommon(this);
+					field.toField(this);
 				}else if(state.equals("sommoning")&&gameState.get(3)==0) {
 					
 					state="inhand";

@@ -142,9 +142,18 @@ public class Card extends Thread{
 	public int getAd() {
 		return 0;
 	}
-	public void attack() {
+
+	public void attack(Player1 player) {
+		player.decreaseHealth(ad);
 		System.out.println("공격을 해땅 "+getAd());
 	}
+
+	public void attack(Player2 player) {
+		player.decreaseHealth(ad);
+		System.out.println("공격을 해땅 "+getAd());
+	}
+
+
 	public void sommon() {
 		//오버라이딩
 	}

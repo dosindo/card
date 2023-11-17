@@ -26,6 +26,9 @@ import cardList.Card8;
 import cardList.Card9;
 
 public class PreGame extends JFrame{
+	private Player1 player1;
+	private Player2 player2;
+
 	private Image screenImage;//더블버터링을 위한
 	private Graphics screenGraphic;
 	private Image Background = new ImageIcon(Main.class.getResource("../images/임시배경.jpg")).getImage();//인트로 사진저장
@@ -92,6 +95,8 @@ public class PreGame extends JFrame{
 		}
 	}
 	public PreGame() {
+		player1 = new Player1(100, 1);
+		player2 = new Player2(100, 1);
 		deck = new Deck();
 		hand = new Hand();
 		field = new Field();
@@ -394,5 +399,23 @@ public class PreGame extends JFrame{
 		paintComponents(g);//역동적이지 않은 이미지 그리기, 메인프레임에 추가된 요소 그리기 예: add
 		
 		this.repaint();
+	}
+
+	public void batlePhase() {
+		for(Card card : field.field) {
+			if(card.state.equals("infield")) {
+				if (gameState.get(NOWTURN) == 1) {
+					card.attack(player2);
+				} else {
+					card.attack(player1);
+				}
+			}
+		}
+		endPhase();
+	}
+
+	public void endPhase() {
+		gameState.set(NOWTURN, 1 - gameState.get(NOWTURN));
+		turn();
 	}
 }

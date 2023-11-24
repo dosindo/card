@@ -76,7 +76,15 @@ public class PreGame extends JFrame{
 	final int ACT = 0;
 	final int NOWTURN = 1;
 	final int GOLD = 5;
-	
+
+	final int WHOSTURN = 6;
+	final int WHOAMI = 7;
+	final int TURNP1 = 1;
+
+	final int TURNP2 = 2;
+
+	final int P1 = 1;
+	final int P2 = 2;
 	ArrayList<Card> allCard = new ArrayList<Card>();
 	ArrayList<Integer> gameState = new ArrayList<Integer>();
 	//게임 상태를 저장하는 arraylist임.
@@ -86,6 +94,8 @@ public class PreGame extends JFrame{
 	//네 번째는 소환 단계(0이면 실행안됨 1이면 소환시작&카드 선택중 2면 소환 필드선택중)
 	//다섯 번째는 checkx할지말지
 	//여섯 번째는 골드
+	//일곱 번째는 현재 차례를 진행중인 플레이어
+	//여덟 번째는 본인이 플레이어1인지 2인지
 	public Hand hand;
 	public Field field;
 	public Deck deck;
@@ -317,6 +327,13 @@ public class PreGame extends JFrame{
 		gameState.add(0);
 		gameState.add(0);
 		gameState.add(0);
+		gameState.add(0);
+		gameState.add(0);
+		////////////////////////실험을 위한 코드이므로 서버구현시 반드시 반드시 지워야함.
+		gameState.set(WHOAMI,1);
+
+		////////////////////////
+		gameState.set(WHOSTURN,1);
 		isGameScreen = true;
 		FieldButton newfb1 = new FieldButton(gameState,1);
 		FieldButton newfb2 = new FieldButton(gameState,2);
@@ -340,30 +357,44 @@ public class PreGame extends JFrame{
 			System.out.println(deck.deck.get(i).getCardName());
 		}
 		hand.hand.clear();
+		System.out.println(gameState.get(WHOAMI)+"임");
 		draw();
 		draw();
 		draw();
 		turn();
 	}
 	public void turn() {
-		//드로우&세팅페이즈
-		draw();
-		int nowgold = gameState.get(GOLD);
-		gameState.set(GOLD,nowgold+1);
-		gameState.set(ACT, 10);
-		gameState.set(NOWTURN, 1);
-		////////
-		
-		//메인페이즈
+		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
+			//드로우&세팅페이즈
+			draw();
+			int nowgold = gameState.get(GOLD);
+			gameState.set(GOLD, nowgold + 1);
+			gameState.set(ACT, 10);
+			gameState.set(NOWTURN, 1);
+			////////
+			//메인페이즈
+
+			//////
+			System.out.println("내턴");
+		}
+		System.out.println("상대의 턴");
 	}
 	public void draw() {
+		if(hand.gethandsize()==5){
+			return;
+		}
 		deck.draw(1,hand,newcardx);
 		hand.hand.get(hand.gethandsize()-1).setGameState(gameState);
 		hand.hand.get(hand.gethandsize()-1).setField(field);
 		hand.hand.get(hand.gethandsize()-1).setHand(hand);
 		add(hand.hand.get(hand.gethandsize()-1).cardb);
+		add(hand.hand.get(hand.gethandsize()-1).cardAdLb);
+		add(hand.hand.get(hand.gethandsize()-1).cardHpLb);
 		newcardx+=200;
 		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardb, 1);
+		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardAdLb, 1);
+		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardHpLb, 1);
+
 	}
 	public void paint(Graphics g) {
 		screenImage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT);
@@ -381,18 +412,27 @@ public class PreGame extends JFrame{
 		
 		if(isGameScreen) {
 			g.drawImage(deckimage,1100,720-230,null);
-			g.drawImage(field1image,200,300,null);
+			g.drawImage(field1image,200,300-230,null);
 			for(int i=0;i<hand.gethandsize();i++) {
 				hand.hand.get(i).cardb.setBounds(hand.hand.get(i).x,hand.hand.get(i).y,150,230);
+				hand.hand.get(i).cardAdLb.setBounds(hand.hand.get(i).getX()+20,hand.hand.get(i).getY()+150,15,10);
+				hand.hand.get(i).cardHpLb.setBounds(hand.hand.get(i).getX()+120,hand.hand.get(i).getY()+150,15,10);
 			}
 			for(int i=0;i<field.getfieldsize();i++) {
 				field.field.get(i).cardb.setBounds(field.field.get(i).x,field.field.get(i).y,150,230);
+				field.field.get(i).cardAdLb.setBounds(field.field.get(i).getX()+20,field.field.get(i).getY()+150,15,10);
+				field.field.get(i).cardHpLb.setBounds(field.field.get(i).getX()+120,field.field.get(i).getY()+150,15,10);
 			}
+
 			la.setText("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5));
 			//////렉걸리면 이부분 스레드 따로해야함
 			if(gameState.get(4)==1) {
 				gameState.set(4, 0);
 				checkcardx();
+				newcardx-=200;
+			}
+			if(gameState.get(0)==0){
+				battlePhase();
 			}
 			//////
 		}
@@ -401,21 +441,30 @@ public class PreGame extends JFrame{
 		this.repaint();
 	}
 
-	public void batlePhase() {
-		for(Card card : field.field) {
-			if(card.state.equals("infield")) {
-				if (gameState.get(NOWTURN) == 1) {
+	public void battlePhase() {
+		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
+			for (Card card : field.field) {
+				if (gameState.get(WHOAMI) == 1) {
 					card.attack(player2);
 				} else {
 					card.attack(player1);
 				}
 			}
+			gameState.set(0,-1);
 		}
 		endPhase();
 	}
 
 	public void endPhase() {
-		gameState.set(NOWTURN, 1 - gameState.get(NOWTURN));
+		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
+			if(gameState.get(WHOAMI)==1){
+				gameState.set(WHOSTURN, 2);
+			}
+			else{
+				gameState.set(WHOSTURN, 1);
+			}
+		}
+		System.out.println(gameState.get(WHOSTURN)+"의 차례");
 		turn();
 	}
 }

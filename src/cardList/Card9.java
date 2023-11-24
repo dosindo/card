@@ -10,6 +10,7 @@ public class Card9 extends Card{
 	private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/card9.png"));
 	String name = "card9";
 	int ad = 9;
+	int hp=10;
 	public Card9() {
 		super(card1Image);
 	}
@@ -18,5 +19,8 @@ public class Card9 extends Card{
 	}
 	public int getAd() {
 		return ad;
+	}
+	public int getHp() {
+		return hp;
 	}
 }

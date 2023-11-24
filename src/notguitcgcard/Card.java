@@ -8,17 +8,22 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+import javax.swing.JLabel;
+import java.awt.Color;
 public class Card extends Thread{
 	int ad;
 	int x,y;
 	int newcardx;
+	int fieldnum;
+	int hp;
 	ArrayList<Integer> gameState;
 	Field field;
 	Hand hand;
 	String state = "notinscreen";
 	ImageIcon card1Image;
 	JButton cardb = new JButton();
+	JLabel cardAdLb;
+	JLabel cardHpLb;
 	public void setGameState(ArrayList<Integer> gameState) {
 		this.gameState = gameState;
 	}
@@ -40,7 +45,7 @@ public class Card extends Thread{
 	protected Card(ImageIcon card1Image){
 		this.card1Image = card1Image;
 		cardb.setIcon(card1Image);
-		
+
 		cardb.setBounds(100,500,150,230);//x,y,크기
 		cardb.setBorderPainted(false);
 		cardb.setContentAreaFilled(false);
@@ -64,29 +69,43 @@ public class Card extends Thread{
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(gameState.get(0)>0 && gameState.get(3)==0 &&state.equals("inhand")) {
-					setState("sommoning");
-					gameState.set(3, 1);
-					y=720-230-100;
-				}
-				else if(state.equals("sommoning")&&gameState.get(3)!=0) {
-					setState("inhand");
-					gameState.set(3, 0);
-					y=720-230+100;
+				if(gameState.get(6)==gameState.get(7))//WHOSTURN==WHOAMI?
+				{
+					if (gameState.get(0) > 0 && gameState.get(3) == 0 && state.equals("inhand")) {
+						setState("sommoning");
+						gameState.set(3, 1);
+						y = 720 - 230 - 100;
+					} else if (state.equals("sommoning") && gameState.get(3) != 0) {
+						setState("inhand");
+						gameState.set(3, 0);
+						y = 720 - 230 + 100;
+					}
 				}
 				System.out.println(state);
 			}
 		});
-		
+		cardAdLb = new JLabel(ad+"");
+		cardHpLb = new JLabel(hp+"");
+		cardAdLb.setOpaque(true); //Opaque값을 true로 미리 설정해 주어야 배경색이 적용된다.
+		cardAdLb.setBackground(Color.pink);
+		cardHpLb.setOpaque(true); //Opaque값을 true로 미리 설정해 주어야 배경색이 적용된다.
+		cardHpLb.setBackground(Color.pink);
 	}
 	
 	public void run() {
 		try {
 			while (true) {
+				cardAdLb.setText(getAd()+"");
+				cardHpLb.setText(getHp()+"");
 				if (state.equals("notinscreen")) {
 					cardb.setVisible(true);
+					cardAdLb.setVisible(true);
+					cardHpLb.setVisible(true);
+
 				} else if (state.equals("drawing")) {
 					cardb.setVisible(true);
+					cardAdLb.setVisible(true);
+					cardHpLb.setVisible(true);
 					while (true) {
 
 						if (x != newcardx) {
@@ -112,6 +131,7 @@ public class Card extends Thread{
 
 					x=50+gameState.get(2)*150;
 					y=300;
+					fieldnum = gameState.get(2);
 					gameState.set(3, 0);
 					gameState.set(2, 0);
 					gameState.set(4,1);
@@ -142,6 +162,9 @@ public class Card extends Thread{
 	public int getAd() {
 		return 0;
 	}
+	public int getHp() {
+		return 0;
+	}
 
 	public void attack(Player1 player) {
 		player.decreaseHealth(ad);
@@ -156,5 +179,11 @@ public class Card extends Thread{
 
 	public void sommon() {
 		//오버라이딩
+	}
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
 	}
 }

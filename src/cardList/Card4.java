@@ -12,6 +12,7 @@ public class Card4 extends Card{
 
 	String name = "card4";
 	int ad = 4;
+	int hp=10;
 	public Card4() {
 		super(card1Image);
 	}
@@ -20,5 +21,8 @@ public class Card4 extends Card{
 	}
 	public int getAd() {
 		return ad;
+	}
+	public int getHp() {
+		return hp;
 	}
 }

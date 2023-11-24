@@ -1,10 +1,10 @@
 package cardList;
-import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
 import notguitcgcard.Card;
 import notguitcgcard.Main;
+import notguitcgcard.Player;
 
 public class Card1 extends Card{
 	private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/humanbow.png"));
@@ -23,5 +23,9 @@ public class Card1 extends Card{
 	public int getHp() {
 		return hp;
 	}
-
+	public void attack(Player player) {
+		player.decreaseHealth(ad);
+		System.out.println("공격을 해땅 "+getAd());
+		ad+=3;
+	}
 }

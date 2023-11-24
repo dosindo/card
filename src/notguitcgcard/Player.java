@@ -1,10 +1,10 @@
 package notguitcgcard;
 
-public class Player2 {
+public class Player {
     private int health;
     private int level;
 
-    public Player2(int health, int level) {
+    public Player(int health, int level) {
         this.health = health;
         this.level = level;
     }

@@ -13,7 +13,7 @@ public class Field {
 		return field.size();
 	}
 
-
+/*
 	public void attackPlayers(Player1 player1, Player2 player2) {
 		for (Card card : field) {
 			if (card.state.equals("infield")) {
@@ -22,4 +22,5 @@ public class Field {
 			}
 		}
 	}
+	*/
 }

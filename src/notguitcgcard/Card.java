@@ -95,13 +95,17 @@ public class Card extends Thread{
 	public void run() {
 		try {
 			while (true) {
+				if(getHp()<0){
+					destroy();
+					setState("notinscreen");
+				}
 				cardAdLb.setText(getAd()+"");
 				cardHpLb.setText(getHp()+"");
 				if (state.equals("notinscreen")) {
 					cardb.setVisible(true);
 					cardAdLb.setVisible(true);
 					cardHpLb.setVisible(true);
-
+					cardb.setBounds(0,0,0,0);
 				} else if (state.equals("drawing")) {
 					cardb.setVisible(true);
 					cardAdLb.setVisible(true);
@@ -166,20 +170,28 @@ public class Card extends Thread{
 		return 0;
 	}
 
-	public void attack(Player1 player) {
+	public void attack(Player player) {
 		player.decreaseHealth(ad);
 		System.out.println("공격을 해땅 "+getAd());
+	}
+	public void attack(Enemycard enemycard) {
+		int eneHp = enemycard.getHp();
+		eneHp-=getAd();
+		enemycard.setHp(eneHp);
+	}
+	public void attacked(int dam){
+		hp-=dam;
+	}
+	public void destroy(){
+		return;
 	}
 
-	public void attack(Player2 player) {
-		player.decreaseHealth(ad);
-		System.out.println("공격을 해땅 "+getAd());
-	}
 
 
 	public void sommon() {
 		//오버라이딩
 	}
+
 	public int getX(){
 		return x;
 	}

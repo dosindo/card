@@ -26,8 +26,8 @@ import cardList.Card8;
 import cardList.Card9;
 
 public class PreGame extends JFrame{
-	private Player1 player1;
-	private Player2 player2;
+	private Player player1;
+	private Player player2;
 
 	private Image screenImage;//더블버터링을 위한
 	private Graphics screenGraphic;
@@ -98,6 +98,7 @@ public class PreGame extends JFrame{
 	//여덟 번째는 본인이 플레이어1인지 2인지
 	public Hand hand;
 	public Field field;
+	public Enemyfield enemyfield;
 	public Deck deck;
 	public static void printCard(ArrayList<Card> allCard) {
 		for(int i=0;i<allCard.size();i++) {
@@ -105,11 +106,12 @@ public class PreGame extends JFrame{
 		}
 	}
 	public PreGame() {
-		player1 = new Player1(100, 1);
-		player2 = new Player2(100, 1);
+		player1 = new Player(100, 1);
+		player2 = new Player(100, 1);
 		deck = new Deck();
 		hand = new Hand();
 		field = new Field();
+		enemyfield = new Enemyfield();
 		Card1 card1 = new Card1();
 		Card2 card2 = new Card2();
 		Card3 card3 = new Card3();
@@ -358,12 +360,13 @@ public class PreGame extends JFrame{
 		}
 		hand.hand.clear();
 		System.out.println(gameState.get(WHOAMI)+"임");
+		enemyfield.start();
 		draw();
 		draw();
 		draw();
 		turn();
 	}
-	public void turn() {
+	public void turn() {//ai게임하는 턴이므로 주의할것.
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
 			//드로우&세팅페이즈
 			draw();
@@ -377,7 +380,34 @@ public class PreGame extends JFrame{
 			//////
 			System.out.println("내턴");
 		}
-		System.out.println("상대의 턴");
+		else{
+			int fieldnum;
+			if(enemyfield.getfieldsize()<4) {
+				while(true) {
+					fieldnum = (int) (Math.random() * 4) + 1;
+					boolean go = true;
+					for(int i=0;i<enemyfield.getfieldsize();i++){
+						if(enemyfield.field.get(i).fieldnum==fieldnum){
+							go=false;
+						}
+					}
+					if(go){
+						break;
+					}
+				}
+				int cn = (int) (Math.random() * 9) + 1;
+				enemyfield.toField("card"+cn, 10, cn, fieldnum);
+				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb);
+				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb);
+				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb);
+				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb, 1);
+				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb, 1);
+				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb, 1);
+			}
+			gameState.set(WHOSTURN,1);
+			turn();
+		}
+
 	}
 	public void draw() {
 		if(hand.gethandsize()==5){
@@ -423,7 +453,11 @@ public class PreGame extends JFrame{
 				field.field.get(i).cardAdLb.setBounds(field.field.get(i).getX()+20,field.field.get(i).getY()+150,15,10);
 				field.field.get(i).cardHpLb.setBounds(field.field.get(i).getX()+120,field.field.get(i).getY()+150,15,10);
 			}
-
+			for(int i=0;i<enemyfield.getfieldsize();i++) {
+				enemyfield.field.get(i).cardb.setBounds(enemyfield.field.get(i).x,enemyfield.field.get(i).y,150,230);
+				enemyfield.field.get(i).cardAdLb.setBounds(enemyfield.field.get(i).getX()+20,enemyfield.field.get(i).getY()+150,15,10);
+				enemyfield.field.get(i).cardHpLb.setBounds(enemyfield.field.get(i).getX()+120,enemyfield.field.get(i).getY()+150,15,10);
+			}
 			la.setText("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5));
 			//////렉걸리면 이부분 스레드 따로해야함
 			if(gameState.get(4)==1) {
@@ -441,10 +475,56 @@ public class PreGame extends JFrame{
 		this.repaint();
 	}
 
+	public void battlePhase() {//ai용 배틀페이즈임
+		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
+			for (Card card : field.field) {
+				boolean directattck = true;
+				for(int i=0;i<enemyfield.getfieldsize();i++){
+					if(card.fieldnum==enemyfield.field.get(i).fieldnum){
+						card.attack(enemyfield.field.get(i));
+						directattck=false;
+					}
+					System.out.println(enemyfield.field.get(i).getHp());
+				}
+				if(directattck) {
+					if (gameState.get(WHOAMI) == 1) {
+						card.attack(player2);
+					} else {
+						card.attack(player1);
+					}
+				}
+			}
+			gameState.set(0,-1);
+		}
+		else{
+			for (Enemycard enemycard : enemyfield.field){
+				boolean directattck = true;
+				for(Card card : field.field){
+					if(card.fieldnum==enemycard.fieldnum){
+						card.attacked(enemycard.getAd());
+						directattck=false;
+					}
+
+				}
+				if(directattck) {
+					player1.decreaseHealth(enemycard.getAd());
+
+				}
+			}
+
+
+		}
+		for(Enemycard e : enemyfield.field){
+			System.out.println(e.getState2());
+		}
+		endPhase();
+	}
+	/*pvp배틀페이즈
 	public void battlePhase() {
 		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
 			for (Card card : field.field) {
 				if (gameState.get(WHOAMI) == 1) {
+
 					card.attack(player2);
 				} else {
 					card.attack(player1);
@@ -454,6 +534,7 @@ public class PreGame extends JFrame{
 		}
 		endPhase();
 	}
+	 */
 
 	public void endPhase() {
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {

@@ -25,4 +25,8 @@ public class Card3 extends Card{
 	public int getHp() {
 		return hp;
 	}
+	int cost = ad;
+	public void setAd(int ad){this.ad = ad;}
+	public void setHp(int hp){this.hp = hp;}
+	public int getCost(){return cost;}
 }

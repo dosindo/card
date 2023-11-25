@@ -102,9 +102,9 @@ public class Card extends Thread{
 				cardAdLb.setText(getAd()+"");
 				cardHpLb.setText(getHp()+"");
 				if (state.equals("notinscreen")) {
-					cardb.setVisible(true);
-					cardAdLb.setVisible(true);
-					cardHpLb.setVisible(true);
+					cardb.setVisible(false);
+					cardAdLb.setVisible(false);
+					cardHpLb.setVisible(false);
 					cardb.setBounds(0,0,0,0);
 				} else if (state.equals("drawing")) {
 					cardb.setVisible(true);
@@ -180,13 +180,14 @@ public class Card extends Thread{
 		enemycard.setHp(eneHp);
 	}
 	public void attacked(int dam){
-		this.hp-=dam;
+		int nowhp = getHp()-dam;
+		setHp(nowhp);
 		System.out.println(dam+"만큼 공격받음! 현재체력 "+getHp()+"임!");
 	}
 	public void destroy(){
 		return;
 	}
-
+	public void setHp(int hp){this.hp = hp;}
 
 
 	public void sommon() {

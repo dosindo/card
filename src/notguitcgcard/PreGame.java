@@ -448,6 +448,9 @@ public class PreGame extends JFrame{
 				hand.hand.get(i).cardHpLb.setBounds(hand.hand.get(i).getX()+120,hand.hand.get(i).getY()+150,15,10);
 			}
 			for(int i=0;i<field.getfieldsize();i++) {
+				if(field.field.get(i).state.equals("notinscreen")){
+					field.field.remove(field.field.get(i));
+				}
 				field.field.get(i).cardb.setBounds(field.field.get(i).x,field.field.get(i).y,150,230);
 				field.field.get(i).cardAdLb.setBounds(field.field.get(i).getX()+20,field.field.get(i).getY()+150,15,10);
 				field.field.get(i).cardHpLb.setBounds(field.field.get(i).getX()+120,field.field.get(i).getY()+150,15,10);

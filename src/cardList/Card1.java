@@ -11,6 +11,7 @@ public class Card1 extends Card{
 	String name = "card1";
 	int ad = 1;
 	int hp = 10;
+
 	public Card1() {
 		super(card1Image);
 	}
@@ -23,6 +24,10 @@ public class Card1 extends Card{
 	public int getHp() {
 		return hp;
 	}
+	int cost = ad;
+	public void setAd(int ad){this.ad = ad;}
+	public void setHp(int hp){this.hp = hp;}
+	public int getCost(){return cost;}
 	public void attack(Player player) {
 		player.decreaseHealth(ad);
 		System.out.println("공격을 해땅 "+getAd());

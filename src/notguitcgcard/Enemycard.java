@@ -43,7 +43,7 @@ public class Enemycard extends Thread{
         while(true){
             cardAdLb.setText(ad+"");
             cardHpLb.setText(hp+"");
-            if(getHp()<0){
+            if(getHp()<=0){
                 cardb.setVisible(false);
                 cardAdLb.setVisible(false);
                 cardHpLb.setVisible(false);

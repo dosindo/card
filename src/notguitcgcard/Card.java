@@ -71,7 +71,7 @@ public class Card extends Thread{
 			public void mousePressed(MouseEvent e) {
 				if(gameState.get(6)==gameState.get(7))//WHOSTURN==WHOAMI?
 				{
-					if (gameState.get(0) > 0 && gameState.get(3) == 0 && state.equals("inhand")) {
+					if (gameState.get(0) > 0 && gameState.get(3) == 0 && state.equals("inhand") && gameState.get(5)>=getCost()) {
 						setState("sommoning");
 						gameState.set(3, 1);
 						y = 720 - 230 - 100;
@@ -95,7 +95,7 @@ public class Card extends Thread{
 	public void run() {
 		try {
 			while (true) {
-				if(getHp()<0){
+				if(getHp()<=0){
 					destroy();
 					setState("notinscreen");
 				}
@@ -132,7 +132,8 @@ public class Card extends Thread{
 					gameState.set(0, ac-1);
 					state="infield";
 					this.sommon();
-
+					int nowgold = gameState.get(5);
+					gameState.set(5,nowgold-getCost());
 					x=50+gameState.get(2)*150;
 					y=300;
 					fieldnum = gameState.get(2);
@@ -199,5 +200,8 @@ public class Card extends Thread{
 	}
 	public int getY(){
 		return y;
+	}
+	public int getCost(){
+		return 0;
 	}
 }

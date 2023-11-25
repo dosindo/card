@@ -98,8 +98,8 @@ public class PreGame extends JFrame{
 		}
 	}
 	public PreGame() {
-		player1 = new Player(100, 1);
-		player2 = new Player(100, 1);
+		player1 = new Player(45, 1);
+		player2 = new Player(45, 1);
 		deck = new Deck();
 		hand = new Hand();
 		field = new Field();
@@ -342,9 +342,9 @@ public class PreGame extends JFrame{
 		container.setComponentZOrder(newfb2, 1);
 		container.setComponentZOrder(newfb3, 1);
 		container.setComponentZOrder(newfb4, 1);
-		la = new JLabel("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5));
-		la.setLocation(130, 50);
-		la.setSize(200, 20);
+		la = new JLabel("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+" 플레이어 남은체력: "+player1.getHealth()+" 적 남은 체력: "+player2.getHealth());
+		la.setLocation(800, 50);
+		la.setSize(500, 50);
 		add(la);
 		
 		for(int i=0;i<deck.deck.size();i++) {
@@ -364,8 +364,8 @@ public class PreGame extends JFrame{
 			//드로우&세팅페이즈
 			draw();
 			int nowgold = gameState.get(GOLD);
-			gameState.set(GOLD, nowgold + 1);
-			gameState.set(ACT, 10);// 두번 설정하므로 주의.
+			//gameState.set(GOLD, nowgold + 1); 턴마다 골드획득은 헷갈리니까 삭제
+			gameState.set(ACT, 3);// 두번 설정하므로 주의.
 			gameState.set(NOWTURN, 1);
 			////////
 			//메인페이즈
@@ -416,7 +416,6 @@ public class PreGame extends JFrame{
 		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardb, 1);
 		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardAdLb, 1);
 		container.setComponentZOrder(hand.hand.get(hand.gethandsize()-1).cardHpLb, 1);
-
 	}
 	public void paint(Graphics g) {
 		screenImage = createImage(SCREEN_WIDTH,SCREEN_HEIGHT);
@@ -437,23 +436,23 @@ public class PreGame extends JFrame{
 			g.drawImage(field1image,200,300-230,null);
 			for(int i=0;i<hand.gethandsize();i++) {
 				hand.hand.get(i).cardb.setBounds(hand.hand.get(i).x,hand.hand.get(i).y,150,230);
-				hand.hand.get(i).cardAdLb.setBounds(hand.hand.get(i).getX()+20,hand.hand.get(i).getY()+150,15,10);
-				hand.hand.get(i).cardHpLb.setBounds(hand.hand.get(i).getX()+120,hand.hand.get(i).getY()+150,15,10);
+				hand.hand.get(i).cardAdLb.setBounds(hand.hand.get(i).getX()+10,hand.hand.get(i).getY()+210,15,10);
+				hand.hand.get(i).cardHpLb.setBounds(hand.hand.get(i).getX()+130,hand.hand.get(i).getY()+210,15,10);
 			}
 			for(int i=0;i<field.getfieldsize();i++) {
 				if(field.field.get(i).state.equals("notinscreen")){
 					field.field.remove(field.field.get(i));
 				}
 				field.field.get(i).cardb.setBounds(field.field.get(i).x,field.field.get(i).y,150,230);
-				field.field.get(i).cardAdLb.setBounds(field.field.get(i).getX()+20,field.field.get(i).getY()+150,15,10);
-				field.field.get(i).cardHpLb.setBounds(field.field.get(i).getX()+120,field.field.get(i).getY()+150,15,10);
+				field.field.get(i).cardAdLb.setBounds(field.field.get(i).getX()+5,field.field.get(i).getY()+210,15,10);
+				field.field.get(i).cardHpLb.setBounds(field.field.get(i).getX()+130,field.field.get(i).getY()+210,15,10);
 			}
 			for(int i=0;i<enemyfield.getfieldsize();i++) {
 				enemyfield.field.get(i).cardb.setBounds(enemyfield.field.get(i).x,enemyfield.field.get(i).y,150,230);
-				enemyfield.field.get(i).cardAdLb.setBounds(enemyfield.field.get(i).getX()+20,enemyfield.field.get(i).getY()+150,15,10);
-				enemyfield.field.get(i).cardHpLb.setBounds(enemyfield.field.get(i).getX()+120,enemyfield.field.get(i).getY()+150,15,10);
+				enemyfield.field.get(i).cardAdLb.setBounds(enemyfield.field.get(i).getX()+5,enemyfield.field.get(i).getY()+210,15,10);
+				enemyfield.field.get(i).cardHpLb.setBounds(enemyfield.field.get(i).getX()+130,enemyfield.field.get(i).getY()+210,15,10);
 			}
-			la.setText("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5));
+			la.setText("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+"\n플레이어 남은체력: "+player1.getHealth()+"\n적 남은 체력: "+player2.getHealth());
 			//////렉걸리면 이부분 스레드 따로해야함
 			if(gameState.get(4)==1) {
 				gameState.set(4, 0);
@@ -462,6 +461,14 @@ public class PreGame extends JFrame{
 			}
 			if(gameState.get(0)<=0){
 				battlePhase();
+			}
+			if(player1.getHealth()==0){
+				isMainScreen=true;
+				isGameScreen=false;
+			}
+			if(player2.getHealth()==0){
+				isMainScreen=true;
+				isGameScreen=false;
 			}
 			//////
 		}
@@ -540,7 +547,7 @@ public class PreGame extends JFrame{
 		}
 		else{
 			gameState.set(WHOSTURN, 1);
-			gameState.set(0,10);
+			gameState.set(0,3);
 		}
 		System.out.println(gameState.get(WHOSTURN)+"의 차례");
 		turn();

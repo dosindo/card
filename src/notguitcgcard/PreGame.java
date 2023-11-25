@@ -500,6 +500,7 @@ public class PreGame extends JFrame{
 				for(Card card : field.field){
 					if(card.fieldnum==enemycard.fieldnum){
 						card.attacked(enemycard.getAd());
+						System.out.println(enemycard.getAd()+"만큼 공격함!");
 						directattck=false;
 					}
 

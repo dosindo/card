@@ -181,6 +181,7 @@ public class Card extends Thread{
 	}
 	public void attacked(int dam){
 		this.hp-=dam;
+		System.out.println(dam+"만큼 공격받음! 현재체력 "+getHp()+"임!");
 	}
 	public void destroy(){
 		return;

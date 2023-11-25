@@ -15,15 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import cardList.Card1;
-import cardList.Card2;
-import cardList.Card3;
-import cardList.Card4;
-import cardList.Card5;
-import cardList.Card6;
-import cardList.Card7;
-import cardList.Card8;
-import cardList.Card9;
+import cardList.*;
 
 public class PreGame extends JFrame{
 	private Player player1;
@@ -277,6 +269,7 @@ public class PreGame extends JFrame{
 		for (int i=0;i<9;i++) {
 			deck.toDeck(allCard.get(i));
 		}
+		deck.toDeck(new HorseSoldier());
 	}
 	public void nowgetGold() {
 		int nowgold = gameState.get(5);

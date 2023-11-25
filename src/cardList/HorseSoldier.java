@@ -2,6 +2,7 @@ package cardList;
 import javax.swing.ImageIcon;
 
 import notguitcgcard.Card;
+import notguitcgcard.Enemycard;
 import notguitcgcard.Main;
 import notguitcgcard.Player;
 
@@ -35,5 +36,8 @@ public class HorseSoldier extends Card{
     public void attack(Player player) {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
+    }
+    public void attack(Enemycard enemycard) {
+
     }
 }

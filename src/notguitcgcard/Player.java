@@ -8,7 +8,9 @@ public class Player {
         this.health = health;
         this.level = level;
     }
-
+    public void setHealth(int hp){
+        this.health = hp;
+    }
     public void decreaseHealth(int amount) { // 피 닳음
         health -= amount;
         if (health < 0) {

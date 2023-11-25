@@ -92,7 +92,11 @@ public class PreGame extends JFrame{
 	public Field field;
 	public Enemyfield enemyfield;
 	public Deck deck;
-	public static void printCard(ArrayList<Card> allCard) {
+	FieldButton newfb1 = new FieldButton(gameState,1);
+	FieldButton newfb2 = new FieldButton(gameState,2);
+	FieldButton newfb3 = new FieldButton(gameState,3);
+	FieldButton newfb4 = new FieldButton(gameState,4);
+	public static void printCard(ArrayList<Card> allCard) {//그냥 콘솔출력임.디버깅용
 		for(int i=0;i<allCard.size();i++) {
 			System.out.println(allCard.get(i).getName());
 		}
@@ -261,15 +265,27 @@ public class PreGame extends JFrame{
 			}
 		});
 		add(menuBar);//jframe에 추가
-		
-		
-		
-		printCard(allCard);
-		
+
+		newfb1.setVisible(false);
+		newfb2.setVisible(false);
+		newfb3.setVisible(false);
+		newfb4.setVisible(false);
+		add(newfb1);
+		add(newfb2);
+		add(newfb3);
+		add(newfb4);
+		container.setComponentZOrder(newfb1, 1);
+		container.setComponentZOrder(newfb2, 1);
+		container.setComponentZOrder(newfb3, 1);
+		container.setComponentZOrder(newfb4, 1);
+
+		enemyfield.start();
+		/*
 		for (int i=0;i<9;i++) {
 			deck.toDeck(allCard.get(i));
 		}
-		deck.toDeck(new HorseSoldier());
+		deck.toDeck(new HorseSoldier());*/
+
 	}
 	public void nowgetGold() {
 		int nowgold = gameState.get(5);
@@ -295,25 +311,66 @@ public class PreGame extends JFrame{
 		startButton.setVisible(false);
 		Background = new ImageIcon(Main.class.getResource("../images/경태형.jpg")).getImage();
 		
-		for(int i=0;i<allCard.size();i+=3) {
-			for(int o=0;o<3;o++) {
-				add(allCard.get(i+o).cardb);
-				allCard.get(i+o).x = o+o*5;
-				allCard.get(i+o).y = i+i*5;
-				System.out.println(allCard.get(i+o).getCardName());
-			}
+
+	}
+	public void backToMain(){
+		gameMusic.close();
+		introMusic = new Music("임시배경음악.mp3",true);
+		introMusic.start();
+		isMainScreen=true;
+		isGameScreen=false;
+		Background = new ImageIcon(Main.class.getResource("../images/임시배경.jpg")).getImage();
+		startButton.setVisible(true);
+		deckScreenButton.setVisible(true);
+		goldButton.setVisible(false);
+		gameState.clear();
+		newfb1.setVisible(false);
+		newfb2.setVisible(false);
+		newfb3.setVisible(false);
+		newfb4.setVisible(false);
+
+		la.setVisible(false);
+
+		//deck.deck.clear();
+		for(Card card : hand.hand){
+			card.cardb.setVisible(false);
+			card.cardAdLb.setVisible(false);
+			card.cardHpLb.setVisible(false);
 		}
+		for(Card card : field.field){
+			card.cardb.setVisible(false);
+			card.cardAdLb.setVisible(false);
+			card.cardHpLb.setVisible(false);
+		}
+		hand.hand.clear();
+		field.field.clear();
+		for(Enemycard card: enemyfield.field){
+			card.cardb.setVisible(false);
+			card.cardAdLb.setVisible(false);
+			card.cardHpLb.setVisible(false);
+		}
+		enemyfield.field.clear();
 	}
 	public void gameStart() {
-		
+		makeDeck1();
+		newcardx = 100;
+		player2.setHealth(45);
+		player1.setHealth(45);
 		introMusic.close();
 		isMainScreen = false;
 		startButton.setVisible(false);
 		deckScreenButton.setVisible(false);
 		Background = new ImageIcon(Main.class.getResource("../images/임시배경2.jpg")).getImage();
 		
+		hand.hand.clear();
+		field.field.clear();
 
+		newfb1.setVisible(true);
+		newfb2.setVisible(true);
+		newfb3.setVisible(true);
+		newfb4.setVisible(true);
 		goldButton.setVisible(true);
+		gameMusic = new Music("통통톡톡.mp3",true);
 		gameMusic.start();
 		gameState.clear();
 		gameState.add(1);
@@ -330,19 +387,9 @@ public class PreGame extends JFrame{
 		////////////////////////
 		gameState.set(WHOSTURN,1);
 		isGameScreen = true;
-		FieldButton newfb1 = new FieldButton(gameState,1);
-		FieldButton newfb2 = new FieldButton(gameState,2);
-		FieldButton newfb3 = new FieldButton(gameState,3);
-		FieldButton newfb4 = new FieldButton(gameState,4);
-		add(newfb1);
-		add(newfb2);
-		add(newfb3);
-		add(newfb4);
-		container.setComponentZOrder(newfb1, 1);
-		container.setComponentZOrder(newfb2, 1);
-		container.setComponentZOrder(newfb3, 1);
-		container.setComponentZOrder(newfb4, 1);
+		gameState.set(GOLD, 10);
 		la = new JLabel("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+" 플레이어 남은체력: "+player1.getHealth()+" 적 남은 체력: "+player2.getHealth());
+		la.setVisible(true);
 		la.setLocation(800, 50);
 		la.setSize(500, 50);
 		add(la);
@@ -353,7 +400,7 @@ public class PreGame extends JFrame{
 		}
 		hand.hand.clear();
 		System.out.println(gameState.get(WHOAMI)+"임");
-		enemyfield.start();
+
 		draw();
 		draw();
 		draw();
@@ -463,12 +510,10 @@ public class PreGame extends JFrame{
 				battlePhase();
 			}
 			if(player1.getHealth()==0){
-				isMainScreen=true;
-				isGameScreen=false;
+				backToMain();
 			}
 			if(player2.getHealth()==0){
-				isMainScreen=true;
-				isGameScreen=false;
+				backToMain();
 			}
 			//////
 		}
@@ -476,7 +521,33 @@ public class PreGame extends JFrame{
 		
 		this.repaint();
 	}
-
+	public void makeDeck1(){
+		deck.deck.clear();
+		deck.toDeck(new Archer());
+		deck.toDeck(new Archer());
+		deck.toDeck(new Bard());
+		deck.toDeck(new Bard());
+		deck.toDeck(new Hero());
+		deck.toDeck(new Hero());
+		deck.toDeck(new HorseSoldier());
+		deck.toDeck(new HorseSoldier());
+		deck.toDeck(new Hunter());
+		deck.toDeck(new Hunter());
+		deck.toDeck(new Knights());
+		deck.toDeck(new Knights());
+		deck.toDeck(new Priest());
+		deck.toDeck(new Priest());
+		deck.toDeck(new Scout());
+		deck.toDeck(new Scout());
+		deck.toDeck(new ShieldSoldier());
+		deck.toDeck(new ShieldSoldier());
+		deck.toDeck(new Spearman());
+		deck.toDeck(new Spearman());
+		deck.toDeck(new Thief());
+		deck.toDeck(new Thief());
+		deck.toDeck(new Wizard());
+		deck.toDeck(new Wizard());
+	}
 	public void battlePhase() {//ai용 배틀페이즈임
 		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
 			for (Card card : field.field) {

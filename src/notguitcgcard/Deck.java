@@ -11,8 +11,9 @@ public class Deck {
 	public void draw(int num,Hand hand,int newcardx) {
 		for(int i=0;i<num;i++) {
 			Collections.shuffle(deck);
-			if(deck.size()==0){
+			if(deck.size()<=0){
 				System.out.println("덱이 없음");
+				break;
 			}
 			else {
 			hand.toHand(deck.get(0));

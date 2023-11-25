@@ -487,12 +487,13 @@ public class PreGame extends JFrame{
 				hand.hand.get(i).cardHpLb.setBounds(hand.hand.get(i).getX()+130,hand.hand.get(i).getY()+210,15,10);
 			}
 			for(int i=0;i<field.getfieldsize();i++) {
-				if(field.field.get(i).state.equals("notinscreen")){
-					field.field.remove(field.field.get(i));
-				}
+
 				field.field.get(i).cardb.setBounds(field.field.get(i).x,field.field.get(i).y,150,230);
 				field.field.get(i).cardAdLb.setBounds(field.field.get(i).getX()+5,field.field.get(i).getY()+210,15,10);
 				field.field.get(i).cardHpLb.setBounds(field.field.get(i).getX()+130,field.field.get(i).getY()+210,15,10);
+				if(field.field.get(i).state.equals("notinscreen")){
+					field.field.remove(field.field.get(i));
+				}
 			}
 			for(int i=0;i<enemyfield.getfieldsize();i++) {
 				enemyfield.field.get(i).cardb.setBounds(enemyfield.field.get(i).x,enemyfield.field.get(i).y,150,230);
@@ -551,6 +552,9 @@ public class PreGame extends JFrame{
 	public void battlePhase() {//ai용 배틀페이즈임
 		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
 			for (Card card : field.field) {
+				card.attack(player2, enemyfield);
+				/////////////////////////
+				/*
 				boolean directattck = true;
 				for(int i=0;i<enemyfield.getfieldsize();i++){
 					if(card.fieldnum==enemyfield.field.get(i).fieldnum){
@@ -565,6 +569,8 @@ public class PreGame extends JFrame{
 						card.attack(player1);
 					}
 				}
+				*/
+				///////////////////////////
 			}
 			gameState.set(0,-1);
 		}

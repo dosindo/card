@@ -17,14 +17,9 @@ public class Enemyfield extends Thread{
     public void run(){
         try{
         while(true){
-            for(Enemycard card : field){
-                if(card.getState2().equals("notinscreen")){
-                    field.remove(card);
-                    System.out.println("gogogogoo");
-                }
-            }
+            field.removeIf(card -> card.getState2().equals("notinscreen"));
             try {
-                Thread.sleep(50);
+                Thread.sleep(10);
             } catch (Exception e) {
                 e.printStackTrace();
             }

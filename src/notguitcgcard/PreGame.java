@@ -372,7 +372,7 @@ public class PreGame extends JFrame{
 			draw();
 			int nowgold = gameState.get(GOLD);
 			gameState.set(GOLD, nowgold + 1);
-			gameState.set(ACT, 10);
+			gameState.set(ACT, 10);// 두번 설정하므로 주의.
 			gameState.set(NOWTURN, 1);
 			////////
 			//메인페이즈
@@ -404,8 +404,7 @@ public class PreGame extends JFrame{
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb, 1);
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb, 1);
 			}
-			gameState.set(WHOSTURN,1);
-			turn();
+			battlePhase();
 		}
 
 	}
@@ -465,7 +464,7 @@ public class PreGame extends JFrame{
 				checkcardx();
 				newcardx-=200;
 			}
-			if(gameState.get(0)==0){
+			if(gameState.get(0)<=0){
 				battlePhase();
 			}
 			//////
@@ -484,7 +483,6 @@ public class PreGame extends JFrame{
 						card.attack(enemyfield.field.get(i));
 						directattck=false;
 					}
-					System.out.println(enemyfield.field.get(i).getHp());
 				}
 				if(directattck) {
 					if (gameState.get(WHOAMI) == 1) {
@@ -512,11 +510,8 @@ public class PreGame extends JFrame{
 				}
 			}
 
+		}
 
-		}
-		for(Enemycard e : enemyfield.field){
-			System.out.println(e.getState2());
-		}
 		endPhase();
 	}
 	/*pvp배틀페이즈
@@ -543,9 +538,31 @@ public class PreGame extends JFrame{
 			}
 			else{
 				gameState.set(WHOSTURN, 1);
+
+			}
+		}
+		else{
+			gameState.set(WHOSTURN, 1);
+			gameState.set(0,10);
+		}
+		System.out.println(gameState.get(WHOSTURN)+"의 차례");
+		turn();
+	}
+}
+/*
+public void endPhase() {
+		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
+			if(gameState.get(WHOAMI)==1){
+				gameState.set(WHOSTURN, 2);
+			}
+			else{
+				gameState.set(WHOSTURN, 1);
+
 			}
 		}
 		System.out.println(gameState.get(WHOSTURN)+"의 차례");
 		turn();
 	}
 }
+
+ */

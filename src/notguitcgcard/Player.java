@@ -19,4 +19,7 @@ public class Player {
     public void increaseHealth(int amount) { // 피가 찬다!
         health += amount;
     }
+    public int getHealth(){
+        return health;
+    }
 }

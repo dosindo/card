@@ -20,10 +20,11 @@ public class Enemyfield extends Thread{
             for(Enemycard card : field){
                 if(card.getState2().equals("notinscreen")){
                     field.remove(card);
+                    System.out.println("gogogogoo");
                 }
             }
             try {
-                Thread.sleep(10);
+                Thread.sleep(50);
             } catch (Exception e) {
                 e.printStackTrace();
             }

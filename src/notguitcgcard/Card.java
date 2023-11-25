@@ -180,7 +180,7 @@ public class Card extends Thread{
 		enemycard.setHp(eneHp);
 	}
 	public void attacked(int dam){
-		hp-=dam;
+		this.hp-=dam;
 	}
 	public void destroy(){
 		return;

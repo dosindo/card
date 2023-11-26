@@ -396,9 +396,6 @@ public class PreGame extends JFrame{
 	}
 
 	public void backTomainFromDeck() {
-		gameMusic.close();
-		introMusic = new Music("임시배경음악.mp3",true);
-		introMusic.start();
 		isMainScreen=true;
 		isGameScreen=false;
 		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();

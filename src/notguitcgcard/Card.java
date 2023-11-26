@@ -16,14 +16,37 @@ public class Card extends Thread{
 	int newcardx;
 	int fieldnum;
 	int hp;
+
 	ArrayList<Integer> gameState;
 	Field field;
+	Enemyfield enemyfield;
 	Hand hand;
 	String state = "notinscreen";
 	ImageIcon card1Image;
 	JButton cardb = new JButton();
 	JLabel cardAdLb;
 	JLabel cardHpLb;
+	Player player2;
+	Player player1;
+	public Player getPlayer2() {
+		return player2;
+	}
+	public void setPlayer2(Player player2){
+		this.player2 = player2;
+	}
+	public Player getPlayer1() {
+		return player1;
+	}
+	public void setPlayer1(Player player1){
+		this.player1 = player1;
+	}
+
+	public Enemyfield getEnemyfield() {
+		return enemyfield;
+	}
+	public void setEnemyfield(Enemyfield enemyfield){
+		this.enemyfield = enemyfield;
+	}
 	public void setGameState(ArrayList<Integer> gameState) {
 		this.gameState = gameState;
 	}
@@ -216,6 +239,10 @@ public class Card extends Thread{
 
 	public void sommon() {
 		//오버라이딩
+	}
+
+	public Field getField() {
+		return field;
 	}
 
 	public int getX(){

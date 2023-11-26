@@ -43,5 +43,17 @@ public class Amorucci extends Card {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 " + getAd());
     }
+    public void attacked(int dam){
+        int i=1;
+        int nowhp = getHp()-dam;
+        if (nowhp<=1 && i==1)
+        {
+            nowhp=1;
+            i--;
+
+        }
+        setHp(nowhp);
+        System.out.println(dam+"만큼 공격받음! 현재체력 "+getHp()+"임!");
+    }
 
 }

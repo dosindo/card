@@ -5,6 +5,8 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -55,7 +57,7 @@ public class PreGame extends JFrame{
 	private Image titleImage;
 	
 	Container container = getContentPane();
-	
+	int nowDeck=1;
 	final int SCREEN_WIDTH = 1280; //1540;
 	final int SCREEN_HEIGHT = 720; //815;
 	
@@ -96,6 +98,11 @@ public class PreGame extends JFrame{
 	FieldButton newfb2 = new FieldButton(gameState,2);
 	FieldButton newfb3 = new FieldButton(gameState,3);
 	FieldButton newfb4 = new FieldButton(gameState,4);
+
+	JButton deck1;
+	JButton deck2;
+	JButton mainButton;
+
 	public static void printCard(ArrayList<Card> allCard) {//그냥 콘솔출력임.디버깅용
 		for(int i=0;i<allCard.size();i++) {
 			System.out.println(allCard.get(i).getName());
@@ -305,14 +312,104 @@ public class PreGame extends JFrame{
 		}
 	}
 	public void gotoDeckScreen() {
-		//isMainScreen = false;
-		//isDeckScreen = true;
+		// isMainScreen = false;
+		// isDeckScreen = true;
 		deckScreenButton.setVisible(false);
 		startButton.setVisible(false);
 		Background = new ImageIcon(Main.class.getResource("../images/경태형.jpg")).getImage();
-		
 
+		// 이미지를 표시하기 위한 JLabel 생성
+		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("../images/마법사.png"));
+		JLabel imageLabel = new JLabel(imageIcon);
+		imageLabel.setBounds(50, 110, imageIcon.getIconWidth(), imageIcon.getIconHeight()); // 위치와 크기 설정
+		imageLabel.setVisible(false); // 처음에는 숨김 상태로 설정
+		add(imageLabel); // 화면에 추가
+
+		// 새로운 버튼 생성
+		deck1 = new JButton("버튼1");
+		deck2 = new JButton("버튼2");
+
+		// 버튼 위치 및 크기 설정
+		deck1.setBounds(50, 50, 100, 50); // 위치와 크기를 원하는 값으로
+		deck2.setBounds(170, 50, 100, 50); // 위치와 크기를 원하는 값으로
+
+		// 메인으로 가는 버튼 생성
+		mainButton = new JButton("메인으로");
+		mainButton.setBounds(300, 50, 100, 50); // 위치와 크기를 원하는 값으로
+
+		// 메인으로 가는 버튼 이벤트 설정
+		mainButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 메인으로 가는 버튼을 클릭하면 메소드 호출
+				backTomainFromDeck();
+			}
+		});
+
+		// 메인으로 가는 버튼을 화면에 추가
+		add(mainButton);
+
+		// 버튼 이벤트 설정
+		deck1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
+				nowDeck = 1;
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
+				imageLabel.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// 마우스가 버튼에서 벗어났을 때 이미지 숨기게 설정
+				imageLabel.setVisible(false);
+			}
+		});
+
+		deck2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// deck2 버튼을 클릭하면 nowdeck 값을 2로 설정
+				nowDeck = 2;
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
+				imageLabel.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// 마우스가 버튼에서 벗어났을 때 효과
+				imageLabel.setVisible(false);
+			}
+		});
+
+		// 버튼을 화면에 추가
+		add(deck1);
+		add(deck2);
 	}
+
+	public void backTomainFromDeck() {
+		gameMusic.close();
+		introMusic = new Music("임시배경음악.mp3",true);
+		introMusic.start();
+		isMainScreen=true;
+		isGameScreen=false;
+		Background = new ImageIcon(Main.class.getResource("../images/임시배경.jpg")).getImage();
+		startButton.setVisible(true);
+		deckScreenButton.setVisible(true);
+
+		deck1.setVisible(false);
+		deck2.setVisible(false);
+		mainButton.setVisible(false);
+	}
+
 	public void backToMain(){
 		gameMusic.close();
 		introMusic = new Music("임시배경음악.mp3",true);
@@ -328,7 +425,7 @@ public class PreGame extends JFrame{
 		newfb2.setVisible(false);
 		newfb3.setVisible(false);
 		newfb4.setVisible(false);
-
+		mainButton.setVisible(false);
 		la.setVisible(false);
 
 		//deck.deck.clear();
@@ -405,6 +502,19 @@ public class PreGame extends JFrame{
 		draw();
 		draw();
 		turn();
+
+		mainButton = new JButton("메인으로");
+		mainButton.setBounds(50, 50, 100, 50); // 위치와 크기를 원하는 값으로
+
+		mainButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// 메인으로 가는 버튼을 클릭하면 메소드 호출
+				backToMain();
+			}
+		});
+
+		add(mainButton);
 	}
 	public void turn() {//ai게임하는 턴이므로 주의할것.
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {

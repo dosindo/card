@@ -446,7 +446,7 @@ public class PreGame extends JFrame{
 		enemyfield.field.clear();
 	}
 	public void gameStart() {
-		makeDeck1();
+		makeDeck2();
 		newcardx = 100;
 		player2.setHealth(45);
 		player1.setHealth(45);
@@ -565,6 +565,9 @@ public class PreGame extends JFrame{
 		deck.draw(1,hand,newcardx);
 		hand.hand.get(hand.gethandsize()-1).setGameState(gameState);
 		hand.hand.get(hand.gethandsize()-1).setField(field);
+		hand.hand.get(hand.gethandsize()-1).setPlayer2(player2);
+		hand.hand.get(hand.gethandsize()-1).setPlayer1(player1);
+		hand.hand.get(hand.gethandsize()-1).setEnemyfield(enemyfield);
 		hand.hand.get(hand.gethandsize()-1).setHand(hand);
 		add(hand.hand.get(hand.gethandsize()-1).cardb);
 		add(hand.hand.get(hand.gethandsize()-1).cardAdLb);
@@ -632,6 +635,34 @@ public class PreGame extends JFrame{
 		
 		this.repaint();
 	}
+	public void makeDeck2(){
+		deck.deck.clear();
+		deck.toDeck(new Addusu());
+		deck.toDeck(new Addusu());
+		deck.toDeck(new Bee());
+		deck.toDeck(new Bee());
+		deck.toDeck(new Ladybug());
+		deck.toDeck(new Ladybug());
+		deck.toDeck(new Akimos());
+		deck.toDeck(new Akimos());
+		deck.toDeck(new Beelzemub());
+		deck.toDeck(new Beelzemub());
+		deck.toDeck(new Amorucci());
+		deck.toDeck(new Amorucci());
+		deck.toDeck(new Fly());
+		deck.toDeck(new Fly());
+		deck.toDeck(new Girax());
+		deck.toDeck(new Girax());
+		deck.toDeck(new Ved());
+		deck.toDeck(new Ved());
+		deck.toDeck(new Vlady());
+		deck.toDeck(new Vlady());
+		deck.toDeck(new Hercules());
+		deck.toDeck(new Hercules());
+		deck.toDeck(new SquolMeterol());
+		deck.toDeck(new SquolMeterol());
+
+	}
 	public void makeDeck1(){
 		deck.deck.clear();
 		deck.toDeck(new Archer());
@@ -659,6 +690,7 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Wizard());
 		deck.toDeck(new Wizard());
 	}
+
 	public void battlePhase() {//ai용 배틀페이즈임
 		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
 			for (Card card : field.field) {

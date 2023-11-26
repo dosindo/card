@@ -40,4 +40,23 @@ public class Bard extends Card{
             card.setAd(r);
         }
     }
+    public void attack(Player player,Enemyfield enemyfield) {
+        boolean directattck = true;
+        for(int i=0;i<enemyfield.getfieldsize();i++){
+            if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
+                int eneHp = enemyfield.field.get(i).getHp();
+                eneHp-=getAd();
+                enemyfield.field.get(i).setHp(eneHp);
+                directattck=false;
+
+
+            }
+        }
+        if(directattck) {
+            player.decreaseHealth(getAd());
+        }
+        int i=getHp()+2;
+        setHp(i);
+
+    }
 }

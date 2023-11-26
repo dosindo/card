@@ -207,6 +207,7 @@ public class Card extends Thread{
 	public int getFieldnum(){
 		return this.fieldnum;
 	}
+
 	public void attack(Player player,Enemyfield enemyfield) {
 		boolean directattck = true;
 		for(int i=0;i<enemyfield.getfieldsize();i++){

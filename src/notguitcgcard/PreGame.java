@@ -25,6 +25,9 @@ public class PreGame extends JFrame{
 
 	private Image screenImage;//더블버터링을 위한
 	private Graphics screenGraphic;
+
+	private Image Border = new ImageIcon(Main.class.getResource("../images/테두리.png")).getImage();
+
 	private Image Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();//인트로 사진저장
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menubar.png")));
 	
@@ -170,7 +173,7 @@ public class PreGame extends JFrame{
 		});
 		add(exitButton);
 		
-		startButton.setBounds(400,400,400,100); // 590, 400,...
+		startButton.setBounds(100,420,400,100); // 590, 400,...
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -197,7 +200,7 @@ public class PreGame extends JFrame{
 		});
 		add(startButton);
 		
-		deckScreenButton.setBounds(400,550,400,100); // 590 ...
+		deckScreenButton.setBounds(100,550,400,100); // 590 ...
 		deckScreenButton.setBorderPainted(false);
 		deckScreenButton.setContentAreaFilled(false);
 		deckScreenButton.setFocusPainted(false);
@@ -316,14 +319,8 @@ public class PreGame extends JFrame{
 		// isDeckScreen = true;
 		deckScreenButton.setVisible(false);
 		startButton.setVisible(false);
-		Background = new ImageIcon(Main.class.getResource("../images/경태형.jpg")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/덱go.jpg")).getImage();
 
-		// 이미지를 표시하기 위한 JLabel 생성
-		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("../images/마법사.png"));
-		JLabel imageLabel = new JLabel(imageIcon);
-		imageLabel.setBounds(50, 110, imageIcon.getIconWidth(), imageIcon.getIconHeight()); // 위치와 크기 설정
-		imageLabel.setVisible(false); // 처음에는 숨김 상태로 설정
-		add(imageLabel); // 화면에 추가
 
 		// 새로운 버튼 생성
 		deck1 = new JButton("버튼1");
@@ -355,18 +352,23 @@ public class PreGame extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
 				nowDeck = 1;
+				for(Card card : deck.deck){
+					card.setState("inscreen");
+				}
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				makeDeck1ex();
 				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
-				imageLabel.setVisible(true);
+				printDeck();
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// 마우스가 버튼에서 벗어났을 때 이미지 숨기게 설정
-				imageLabel.setVisible(false);
+				dePrintDeck();
 			}
 		});
 
@@ -375,18 +377,20 @@ public class PreGame extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				// deck2 버튼을 클릭하면 nowdeck 값을 2로 설정
 				nowDeck = 2;
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
-				imageLabel.setVisible(true);
+				makeDeck2ex();
+				printDeck();
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// 마우스가 버튼에서 벗어났을 때 효과
-				imageLabel.setVisible(false);
+				dePrintDeck();
 			}
 		});
 
@@ -394,7 +398,35 @@ public class PreGame extends JFrame{
 		add(deck1);
 		add(deck2);
 	}
-
+	public void dePrintDeck(){
+		for(Card card:deck.deck){
+			card.cardb.setVisible(false);
+			card.cardAdLb.setVisible(false);
+			card.cardHpLb.setVisible(false);
+		}
+	}
+	public void printDeck(){
+		int x = 450;
+		int y = 30;
+		int row = 5;
+		for(int i=0;i<deck.deck.size();i++){
+			Card card = deck.deck.get(i);
+			add(card.cardb);
+			add(card.cardAdLb);
+			add(card.cardHpLb);
+			container.setComponentZOrder(card.cardb, 1);
+			container.setComponentZOrder(card.cardAdLb, 1);
+			container.setComponentZOrder(card.cardHpLb, 1);
+			card.cardb.setVisible(true);
+			card.cardAdLb.setVisible(true);
+			card.cardHpLb.setVisible(true);
+			card.cardAdLb.setText(card.getAd()+"");
+			card.cardHpLb.setText(card.getHp()+"");
+			card.cardb.setBounds(x+((int)(i%row))*150,y+((int)(i/row))*230,150,230);
+			card.cardAdLb.setBounds(x+((int)(i%row))*150+5,y+((int)(i/row))*230+210,15,10);
+			card.cardHpLb.setBounds(x+((int)(i%row)+1)*150-20,y+((int)(i/row))*230+210,15,10);
+		}
+	}
 	public void backTomainFromDeck() {
 		isMainScreen=true;
 		isGameScreen=false;
@@ -716,6 +748,63 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Thief());
 		deck.toDeck(new Wizard());
 		deck.toDeck(new Wizard());
+	}
+
+
+	public void makeDeck2ex(){
+		deck.deck.clear();
+		deck.toDeck(new Addusu());
+
+		deck.toDeck(new Bee());
+
+		deck.toDeck(new Ladybug());
+
+		deck.toDeck(new Akimos());
+
+		deck.toDeck(new Beelzemub());
+
+		deck.toDeck(new Amorucci());
+
+		deck.toDeck(new Fly());
+
+		deck.toDeck(new Girax());
+
+		deck.toDeck(new Ved());
+
+		deck.toDeck(new Vlady());
+
+		deck.toDeck(new Hercules());
+
+		deck.toDeck(new SquolMeterol());
+
+
+	}
+	public void makeDeck1ex(){
+		deck.deck.clear();
+		deck.toDeck(new Archer());
+
+		deck.toDeck(new Bard());
+
+		deck.toDeck(new Hero());
+
+		deck.toDeck(new HorseSoldier());
+
+		deck.toDeck(new Hunter());
+
+		deck.toDeck(new Knights());
+
+		deck.toDeck(new Priest());
+
+		deck.toDeck(new Scout());
+
+		deck.toDeck(new ShieldSoldier());
+
+		deck.toDeck(new Spearman());
+
+		deck.toDeck(new Thief());
+
+		deck.toDeck(new Wizard());
+
 	}
 
 	public void battlePhase() {//ai용 배틀페이즈임

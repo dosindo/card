@@ -120,6 +120,7 @@ public class Card extends Thread{
 			while (true) {
 				if(getHp()<=0){
 					destroy();
+					fieldnum = 1000;
 					setState("notinscreen");
 				}
 				cardAdLb.setText(getAd()+"");

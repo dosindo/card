@@ -26,8 +26,6 @@ public class PreGame extends JFrame{
 	private Image screenImage;//더블버터링을 위한
 	private Graphics screenGraphic;
 
-	private Image Border = new ImageIcon(Main.class.getResource("../images/테두리.png")).getImage();
-
 	private Image Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();//인트로 사진저장
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menubar.png")));
 	
@@ -104,6 +102,7 @@ public class PreGame extends JFrame{
 
 	JButton deck1;
 	JButton deck2;
+	JButton deck3;
 	JButton mainButton;
 
 	public static void printCard(ArrayList<Card> allCard) {//그냥 콘솔출력임.디버깅용
@@ -319,20 +318,22 @@ public class PreGame extends JFrame{
 		// isDeckScreen = true;
 		deckScreenButton.setVisible(false);
 		startButton.setVisible(false);
-		Background = new ImageIcon(Main.class.getResource("../images/덱go.jpg")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/덱go6.png")).getImage();
 
 
 		// 새로운 버튼 생성
 		deck1 = new JButton("버튼1");
 		deck2 = new JButton("버튼2");
+		deck3 = new JButton("버튼3");
 
 		// 버튼 위치 및 크기 설정
 		deck1.setBounds(50, 50, 100, 50); // 위치와 크기를 원하는 값으로
 		deck2.setBounds(170, 50, 100, 50); // 위치와 크기를 원하는 값으로
+		deck3.setBounds(170, 100, 100, 50); // 위치와 크기를 원하는 값으로
 
 		// 메인으로 가는 버튼 생성
 		mainButton = new JButton("메인으로");
-		mainButton.setBounds(300, 50, 100, 50); // 위치와 크기를 원하는 값으로
+		mainButton.setBounds(50, 100, 100, 50); // 위치와 크기를 원하는 값으로
 
 		// 메인으로 가는 버튼 이벤트 설정
 		mainButton.addActionListener(new ActionListener() {
@@ -394,9 +395,32 @@ public class PreGame extends JFrame{
 			}
 		});
 
+		deck3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// deck3 버튼을 클릭하면 nowdeck 값을 3로 설정
+				nowDeck = 3;
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
+				makeDeck3ex();
+				printDeck();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// 마우스가 버튼에서 벗어났을 때 효과
+				dePrintDeck();
+			}
+		});
+
 		// 버튼을 화면에 추가
 		add(deck1);
 		add(deck2);
+		add(deck3);
 	}
 	public void dePrintDeck(){
 		for(Card card:deck.deck){
@@ -436,6 +460,7 @@ public class PreGame extends JFrame{
 
 		deck1.setVisible(false);
 		deck2.setVisible(false);
+		deck3.setVisible(false);
 		mainButton.setVisible(false);
 	}
 
@@ -750,6 +775,33 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Wizard());
 	}
 
+	public void makeDeck3ex(){
+		deck.deck.clear();
+		deck.toDeck(new Chess());
+
+		deck.toDeck(new Chals());
+
+		deck.toDeck(new Partus());
+
+		deck.toDeck(new Phubaos());
+
+		deck.toDeck(new Pigmis());
+
+		deck.toDeck(new Pororos());
+
+		deck.toDeck(new Welchs());
+
+		deck.toDeck(new Dax());
+
+		deck.toDeck(new Woos());
+
+		deck.toDeck(new Goosegoose());
+
+		deck.toDeck(new Nyangs());
+
+		deck.toDeck(new Wills());
+
+	}
 
 	public void makeDeck2ex(){
 		deck.deck.clear();

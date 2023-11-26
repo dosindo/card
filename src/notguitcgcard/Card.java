@@ -180,10 +180,13 @@ public class Card extends Thread{
 		eneHp-=getAd();
 		enemycard.setHp(eneHp);
 	}
+	public int getFieldnum(){
+		return this.fieldnum;
+	}
 	public void attack(Player player,Enemyfield enemyfield) {
 		boolean directattck = true;
 		for(int i=0;i<enemyfield.getfieldsize();i++){
-			if(this.fieldnum==enemyfield.field.get(i).fieldnum){
+			if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
 				int eneHp = enemyfield.field.get(i).getHp();
 				eneHp-=getAd();
 				enemyfield.field.get(i).setHp(eneHp);

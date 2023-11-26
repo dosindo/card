@@ -25,7 +25,7 @@ public class PreGame extends JFrame{
 
 	private Image screenImage;//더블버터링을 위한
 	private Graphics screenGraphic;
-	private Image Background = new ImageIcon(Main.class.getResource("../images/임시배경.jpg")).getImage();//인트로 사진저장
+	private Image Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();//인트로 사진저장
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menubar.png")));
 	
 	private ImageIcon exitButtonbasic = new ImageIcon(Main.class.getResource("../images/closeingbutten.png"));
@@ -401,7 +401,7 @@ public class PreGame extends JFrame{
 		introMusic.start();
 		isMainScreen=true;
 		isGameScreen=false;
-		Background = new ImageIcon(Main.class.getResource("../images/임시배경.jpg")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
 
@@ -416,7 +416,7 @@ public class PreGame extends JFrame{
 		introMusic.start();
 		isMainScreen=true;
 		isGameScreen=false;
-		Background = new ImageIcon(Main.class.getResource("../images/임시배경.jpg")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
 		goldButton.setVisible(false);

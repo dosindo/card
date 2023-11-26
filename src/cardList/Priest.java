@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import notguitcgcard.*;
 
 public class Priest extends Card{
-    private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/성직자.png"));
+    private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/프리스트.png"));
     String name = "Priest";
     int ad = 1;
     int hp = 3;

@@ -1,5 +1,5 @@
 package cardList;
-//버그 수정 주석처리
+//버그 수정 주석
 import javax.swing.ImageIcon;
 
 import notguitcgcard.Card;

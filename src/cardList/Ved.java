@@ -43,5 +43,14 @@ public class Ved extends Card {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 " + getAd());
     }
+    public void attacked(int dam){
+
+        if(dam>2)
+        {
+            int nowhp=getHp()+2-dam;
+            setHp(nowhp);
+        }
+
+    }
 
 }

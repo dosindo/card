@@ -43,5 +43,13 @@ public class Hercules extends Card {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 " + getAd());
     }
+    public void sommon(){
+        Field field = getField();
+        for(Card card:field.field){
+            if(getFieldnum()!=card.getFieldnum()){
+                attack(getPlayer2(),getEnemyfield());
+            }
+        }
+    }
 
 }

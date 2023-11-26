@@ -11,7 +11,7 @@ public class Card6 extends Card{
 	private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/card6.png"));
 
 	String name = "card6";
-	int ad = 6;
+	int ad = 1;
 	int hp=10;
 	public Card6() {
 		super(card1Image);

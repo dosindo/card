@@ -185,6 +185,9 @@ public class Card extends Thread{
 			System.err.println(e.getMessage());
 		}
 	}
+	public ArrayList<Integer> getGameState(){
+		return gameState;
+	}
 	public String getCardName() {
 		return null;
 	}

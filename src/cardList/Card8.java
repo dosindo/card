@@ -10,7 +10,7 @@ import notguitcgcard.Main;
 public class Card8 extends Card{
 	private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/card8.png"));
 	String name = "card8";
-	int ad = 8;
+	int ad = 1;
 	int hp=10;
 	public Card8() {
 		super(card1Image);

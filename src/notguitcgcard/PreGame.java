@@ -603,7 +603,7 @@ public class PreGame extends JFrame{
 					}
 				}
 				int cn = (int) (Math.random() * 9) + 1;
-				enemyfield.toField("card"+cn, 10, cn, fieldnum);
+				enemyfield.toField("card"+cn, 2+10-cn, cn, fieldnum);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb);

@@ -170,7 +170,7 @@ public class PreGame extends JFrame{
 		});
 		add(exitButton);
 		
-		startButton.setBounds(400,400,400,100); // 590, 400,...
+		startButton.setBounds(100,420,400,100); // 590, 400,...
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -197,7 +197,7 @@ public class PreGame extends JFrame{
 		});
 		add(startButton);
 		
-		deckScreenButton.setBounds(400,550,400,100); // 590 ...
+		deckScreenButton.setBounds(100,550,400,100); // 590 ...
 		deckScreenButton.setBorderPainted(false);
 		deckScreenButton.setContentAreaFilled(false);
 		deckScreenButton.setFocusPainted(false);
@@ -355,6 +355,7 @@ public class PreGame extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
 				nowDeck = 1;
+				makeDeck1();
 			}
 
 			@Override
@@ -375,6 +376,7 @@ public class PreGame extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				// deck2 버튼을 클릭하면 nowdeck 값을 2로 설정
 				nowDeck = 2;
+				makeDeck2();
 			}
 
 			@Override

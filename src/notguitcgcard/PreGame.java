@@ -446,7 +446,7 @@ public class PreGame extends JFrame{
 		enemyfield.field.clear();
 	}
 	public void gameStart() {
-		makeDeck2();
+		makeDeck3();
 		newcardx = 100;
 		player2.setHealth(45);
 		player1.setHealth(45);
@@ -634,6 +634,33 @@ public class PreGame extends JFrame{
 		paintComponents(g);//역동적이지 않은 이미지 그리기, 메인프레임에 추가된 요소 그리기 예: add
 		
 		this.repaint();
+	}
+	public void makeDeck3(){
+		deck.deck.clear();
+		deck.toDeck(new Chess());
+		deck.toDeck(new Chess());
+		deck.toDeck(new Chals());
+		deck.toDeck(new Chals());
+		deck.toDeck(new Partus());
+		deck.toDeck(new Partus());
+		deck.toDeck(new Phubaos());
+		deck.toDeck(new Phubaos());
+		deck.toDeck(new Pigmis());
+		deck.toDeck(new Pigmis());
+		deck.toDeck(new Pororos());
+		deck.toDeck(new Pororos());
+		deck.toDeck(new Welchs());
+		deck.toDeck(new Welchs());
+		deck.toDeck(new Dax());
+		deck.toDeck(new Dax());
+		deck.toDeck(new Woos());
+		deck.toDeck(new Woos());
+		deck.toDeck(new Goosegoose());
+		deck.toDeck(new Goosegoose());
+		deck.toDeck(new Nyangs());
+		deck.toDeck(new Nyangs());
+		deck.toDeck(new Wills());
+		deck.toDeck(new Wills());
 	}
 	public void makeDeck2(){
 		deck.deck.clear();

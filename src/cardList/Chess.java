@@ -43,5 +43,14 @@ public class Chess extends Card {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 " + getAd());
     }
+    public int invi = 1;
+    public void attacked(int dam) {
+        if (invi == 0) {
+            int nowhp = getHp() - dam;
+            setHp(nowhp);
 
+        } else {
+            invi = 0;
+        }
+    }
 }

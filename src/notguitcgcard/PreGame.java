@@ -520,6 +520,9 @@ public class PreGame extends JFrame{
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
 			//드로우&세팅페이즈
 			draw();
+			for(Card card:field.field){
+				card.mainEffect(field, enemyfield);
+			}
 			int nowgold = gameState.get(GOLD);
 			//gameState.set(GOLD, nowgold + 1); 턴마다 골드획득은 헷갈리니까 삭제
 			gameState.set(ACT, 3);// 두번 설정하므로 주의.

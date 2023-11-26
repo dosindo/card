@@ -2,6 +2,7 @@ package cardList;
 import javax.swing.ImageIcon;
 
 import notguitcgcard.Card;
+import notguitcgcard.Enemyfield;
 import notguitcgcard.Main;
 import notguitcgcard.Player;
 
@@ -35,5 +36,16 @@ public class Hunter extends Card{
     public void attack(Player player) {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
+    }
+    public void attack(Player player,Enemyfield enemyfield) {
+        for(int i=0;i<enemyfield.getfieldsize();i++){
+            if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
+                int eneHp = enemyfield.field.get(i).getHp();
+                eneHp-=getAd();
+                enemyfield.field.get(i).setHp(eneHp);
+            }
+        }
+        player.decreaseHealth(getAd());
+
     }
 }

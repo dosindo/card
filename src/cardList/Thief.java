@@ -2,6 +2,7 @@ package cardList;
 import javax.swing.ImageIcon;
 
 import notguitcgcard.Card;
+import notguitcgcard.Enemyfield;
 import notguitcgcard.Main;
 import notguitcgcard.Player;
 
@@ -35,5 +36,11 @@ public class Thief extends Card{
     public void attack(Player player) {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
+    }
+    public void attack(Player player, Enemyfield enemyfield) {
+
+
+            player.decreaseHealth(getAd());
+
     }
 }

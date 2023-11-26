@@ -10,7 +10,7 @@ public class Enemycard extends Thread{
     ImageIcon cardImage;
     int hp;
     int ad;
-    int fieldnum;
+    public int fieldnum;
     String state2;
     JLabel cardAdLb;
     JLabel cardHpLb;

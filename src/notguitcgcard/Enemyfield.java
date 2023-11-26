@@ -3,7 +3,7 @@ package notguitcgcard;
 import java.util.ArrayList;
 
 public class Enemyfield extends Thread{
-    ArrayList<Enemycard> field = new ArrayList<Enemycard>();
+    public ArrayList<Enemycard> field = new ArrayList<Enemycard>();
 
     public void toField(String cardname,int hp, int ad, int fieldnum) {
         Enemycard card = new Enemycard(cardname,hp,ad,fieldnum);

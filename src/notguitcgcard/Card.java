@@ -197,6 +197,12 @@ public class Card extends Thread{
 			player.decreaseHealth(getAd());
 		}
 	}
+	public void mainEffect(Field field, Enemyfield enemyfield){
+		return;
+	}
+	public void setAd(int i){
+		this.ad = i;
+	}
 	public void attacked(int dam){
 		int nowhp = getHp()-dam;
 		setHp(nowhp);

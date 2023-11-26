@@ -2,6 +2,7 @@ package cardList;
 import javax.swing.ImageIcon;
 
 import notguitcgcard.Card;
+import notguitcgcard.Enemyfield;
 import notguitcgcard.Main;
 import notguitcgcard.Player;
 
@@ -35,5 +36,19 @@ public class Wizard extends Card{
     public void attack(Player player) {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
+    }
+    public void attack(Player player,Enemyfield enemyfield) {
+        boolean directattck = true;
+        for(int i=0;i<enemyfield.getfieldsize();i++){
+
+                int eneHp = enemyfield.field.get(i).getHp();
+                eneHp-=getAd();
+                enemyfield.field.get(i).setHp(eneHp);
+                directattck=false;
+
+        }
+        if(directattck) {
+            player.decreaseHealth(getAd());
+        }
     }
 }

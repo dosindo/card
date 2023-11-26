@@ -1,9 +1,7 @@
 package cardList;
 import javax.swing.ImageIcon;
 
-import notguitcgcard.Card;
-import notguitcgcard.Main;
-import notguitcgcard.Player;
+import notguitcgcard.*;
 
 public class Priest extends Card{
     private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/성직자.png"));
@@ -35,5 +33,11 @@ public class Priest extends Card{
     public void attack(Player player) {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
+    }
+    public void mainEffect(Field field, Enemyfield enemyfield){
+        for(Card card: field.field){
+            int r = card.getHp()+1;
+            card.setHp(r);
+        }
     }
 }

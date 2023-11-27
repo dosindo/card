@@ -15,13 +15,19 @@ import javax.swing.JLabel;
 import cardList.*;
 
 public class PreGame extends JFrame{
+	TextMove textMove;
+	JLabel vicima = new JLabel(new ImageIcon(Main.class.getResource("../images/동물_플레이.png")));
+	JLabel lossima = new JLabel(new ImageIcon(Main.class.getResource("../images/동물_플레이.png")));
+	JLabel battima = new JLabel(new ImageIcon(Main.class.getResource("../images/동물_플레이.png")));
 	private Player player1;
 	private Player player2;
-
+	boolean lose = false;
+	boolean vic = false;
+	boolean battlest = false;
 	private Image screenImage;//더블버터링을 위한
 	private Graphics screenGraphic;
 
-	private Image Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();//인트로 사진저장
+	private Image Background = new ImageIcon(Main.class.getResource("../images/이쉬타르 배경화면.png")).getImage();//인트로 사진저장
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menubar.png")));
 	private JLabel enemyBoss = new JLabel(new ImageIcon(Main.class.getResource("../images/적_플레이.png")));
 	// 동물_플레이, 곤충_플레이, 인간_플레이 3개! .png
@@ -47,7 +53,7 @@ public class PreGame extends JFrame{
 
 
 	private Image deckimage = new ImageIcon(Main.class.getResource("../images/카드뒷면.png")).getImage();
-	private Image field1image = new ImageIcon(Main.class.getResource("../images/field1.png")).getImage();
+	private Image field1image = new ImageIcon(Main.class.getResource("../images/적필드.png")).getImage();
 
 	private JButton startButton = new JButton(startButtonBasicImage);
 	private JButton exitButton = new JButton(exitButtonbasic);
@@ -103,6 +109,7 @@ public class PreGame extends JFrame{
 	//여섯 번째는 골드
 	//일곱 번째는 현재 차례를 진행중인 플레이어
 	//여덟 번째는 본인이 플레이어1인지 2인지
+	//아홉번째는 end인지
 	public Hand hand;
 	public Field field;
 	public Enemyfield enemyfield;
@@ -184,7 +191,7 @@ public class PreGame extends JFrame{
 		});
 		add(exitButton);
 
-		startButton.setBounds(100,420,400,100); // 590, 400,...
+		startButton.setBounds(180,420,400,100); // 590, 400,...
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -211,7 +218,7 @@ public class PreGame extends JFrame{
 		});
 		add(startButton);
 
-		deckScreenButton.setBounds(100,550,400,100); // 590 ...
+		deckScreenButton.setBounds(180,550,400,100); // 590 ...
 		deckScreenButton.setBorderPainted(false);
 		deckScreenButton.setContentAreaFilled(false);
 		deckScreenButton.setFocusPainted(false);
@@ -543,7 +550,7 @@ public class PreGame extends JFrame{
 		isMainScreen=true;
 		isGameScreen=false;
 		battleManager.setIsgame(false);
-		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/이쉬타르 배경화면.png")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
 		goldButton.setVisible(false);
@@ -584,6 +591,8 @@ public class PreGame extends JFrame{
 		enemyfield.field.clear();
 	}
 	public void gameStart() {
+		lose = false;
+		vic = false;
 		if(nowDeck==1){
 			makeDeck1();
 		} else if (nowDeck==2) {
@@ -592,8 +601,8 @@ public class PreGame extends JFrame{
 			makeDeck3();
 		}
 		newcardx = 100;
-		player2.setHealth(45);
-		player1.setHealth(45);
+		player2.setHealth(5);
+		player1.setHealth(5);
 		introMusic.close();
 		isMainScreen = false;
 		startButton.setVisible(false);
@@ -613,6 +622,7 @@ public class PreGame extends JFrame{
 		gameState.clear();
 		gameState.add(1);
 		gameState.add(DRAWPHASE);
+		gameState.add(0);
 		gameState.add(0);
 		gameState.add(0);
 		gameState.add(0);
@@ -758,6 +768,8 @@ public class PreGame extends JFrame{
 						break;
 					}
 				}
+				Music m = new Music("eme.mp3",false);
+				m.start();
 				int cn = (int) (Math.random() * 11) + 1;
 				enemyfield.toField("ai"+cn, 2+10-cn, (int)(cn/2)+1, fieldnum);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb);
@@ -849,10 +861,53 @@ public class PreGame extends JFrame{
 				battlePhase();
 			}
 			if(player1.getHealth()==0){
-				backToMain();
+				textMove = new TextMove(0,gameState);
+				add(textMove.lossima);
+				textMove.lossima.setVisible(true);
+				isGameScreen = false;
+				lose = true;
+				for(Card card : field.field){
+					card.cardb.setVisible(false);
+					card.cardAdLb.setVisible(false);
+					card.cardHpLb.setVisible(false);
+				}
+				for(Enemycard card : enemyfield.field){
+					card.cardb.setVisible(false);
+					card.cardHpLb.setVisible(false);
+					card.cardAdLb.setVisible(false);
+				}
+				newfb1.setVisible(false);
+				newfb2.setVisible(false);
+				newfb3.setVisible(false);
+				newfb4.setVisible(false);
+				textMove.start();
+				//backToMain();
+
 			}
 			if(player2.getHealth()==0){
-				backToMain();
+				textMove = new TextMove(1,gameState);
+				add(textMove.vicima);
+				textMove.vicima.setVisible(true);
+				isGameScreen = false;
+				vic = true;
+				for(Card card : field.field){
+					card.cardb.setVisible(false);
+					card.cardAdLb.setVisible(false);
+					card.cardHpLb.setVisible(false);
+				}
+				for(Enemycard card : enemyfield.field){
+					card.cardb.setVisible(false);
+					card.cardHpLb.setVisible(false);
+					card.cardAdLb.setVisible(false);
+				}
+				newfb1.setVisible(false);
+				newfb2.setVisible(false);
+				newfb3.setVisible(false);
+				newfb4.setVisible(false);
+				textMove.start();
+
+
+				//backToMain();
 			}
 			//수정요
 			if(isGameScreen) {
@@ -863,6 +918,25 @@ public class PreGame extends JFrame{
 				}
 			}
 			//////
+		}
+		if(lose){
+
+			textMove.lossima.setBounds(textMove.x,textMove.getY(),300,200);
+			if(gameState.get(8)==1){
+				gameState.set(8,0);
+				lose=false;
+				backToMain();
+
+			}
+		}
+		if(vic){
+			textMove.vicima.setBounds(textMove.x,textMove.getY(),300,200);
+			if(gameState.get(8)==1){
+				gameState.set(8,0);
+				vic=false;
+				backToMain();
+
+			}
 		}
 		paintComponents(g);//역동적이지 않은 이미지 그리기, 메인프레임에 추가된 요소 그리기 예: add
 		

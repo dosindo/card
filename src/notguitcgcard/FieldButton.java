@@ -9,7 +9,7 @@ import javax.swing.JButton;
 
 public class FieldButton extends JButton{
 	private int num;
-	private static ImageIcon fimage = new ImageIcon(Main.class.getResource("../images/field1_1.png"));
+	private static ImageIcon fimage = new ImageIcon(Main.class.getResource("../images/아군 카드 필드.png"));
 	FieldButton(ArrayList<Integer> gameState,int num){
 		super(fimage);
 		this.num=num;

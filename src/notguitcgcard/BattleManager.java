@@ -54,6 +54,8 @@ public class BattleManager extends Thread{
                         e.printStackTrace();
                     }
                     for (Enemycard enemycard : enemyfield.field){
+                        Music m = new Music("deck1.mp3",false);
+                        m.start();
                         boolean directattck = true;
                         for(Card card : field.field){
                             if(card.fieldnum==enemycard.fieldnum && enemycard.getHp()>0){

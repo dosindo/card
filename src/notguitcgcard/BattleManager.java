@@ -28,7 +28,22 @@ public class BattleManager extends Thread{
                 if (gameState.get(6) == gameState.get(7)) {
                     for (Card card : field.field) {
                         card.attack(player2, enemyfield);
-
+                        for(int i=0;i<50;i++){
+                            card.y-=1;
+                            try {
+                                Thread.sleep(10);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        for(int i=0;i<50;i++){
+                            card.y+=1;
+                            try {
+                                Thread.sleep(10);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                     gameState.set(0,-1);
                 }
@@ -51,6 +66,22 @@ public class BattleManager extends Thread{
                         if(directattck) {
                             player1.decreaseHealth(enemycard.getAd());
 
+                        }
+                        for(int i=0;i<50;i++){
+                            enemycard.y+=1;
+                            try {
+                                Thread.sleep(10);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        for(int i=0;i<50;i++){
+                            enemycard.y-=1;
+                            try {
+                                Thread.sleep(10);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
 

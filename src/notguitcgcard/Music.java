@@ -24,12 +24,7 @@ public class Music extends Thread {
 			System.out.println(e.getMessage());
 		}
 	}
-	//노트 떨어뜨릴 때 시간
-	public int getTime() {
-		if (player == null)
-			return 0;
-		return player.getPosition();
-	}
+
 	//안정적으로 음악 종료
 	public void close() {
 		isLoop = false;

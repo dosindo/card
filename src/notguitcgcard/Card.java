@@ -16,7 +16,6 @@ public class Card extends Thread{
 	int newcardx;
 	int fieldnum;
 	int hp;
-
 	ArrayList<Integer> gameState;
 	Field field;
 	Enemyfield enemyfield;

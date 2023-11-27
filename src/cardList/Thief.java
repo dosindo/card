@@ -36,9 +36,7 @@ public class Thief extends Card{
     }
     public void attack(Player player, Enemyfield enemyfield) {
         setAtmname("deck1.mp3");
-        getAtm().start();
         setatm(new Music(getAtmname(),false));
-        setAtmname("deck1.mp3");
         getAtm().start();
         player.decreaseHealth(getAd());
 

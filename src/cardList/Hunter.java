@@ -36,8 +36,9 @@ public class Hunter extends Card{
     }
     public void attack(Player player,Enemyfield enemyfield) {
         setAtmname("deck1.mp3");
-        getAtm().start();
         setatm(new Music(getAtmname(),false));
+        getAtm().start();
+
         for(int i=0;i<enemyfield.getfieldsize();i++){
             if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
                 int eneHp = enemyfield.field.get(i).getHp();

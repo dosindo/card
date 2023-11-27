@@ -37,8 +37,9 @@ public class Wizard extends Card{
 
     public void attack(Player player,Enemyfield enemyfield) {
         setAtmname("deck1.mp3");
-        getAtm().start();
         setatm(new Music(getAtmname(),false));
+        getAtm().start();
+
         boolean directattck = true;
         for(int i=0;i<enemyfield.getfieldsize();i++){
 

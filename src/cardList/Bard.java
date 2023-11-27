@@ -31,6 +31,9 @@ public class Bard extends Card{
         return cost;
     }
     public void attack(Player player) {
+        setAtmname("deck1.mp3");
+        setatm(new Music(getAtmname(),false));
+        getAtm().start();
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
     }

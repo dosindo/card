@@ -52,6 +52,7 @@ public class PreGame extends JFrame{
 	private boolean isGameScreen = false;
 	private Music introMusic = new Music("임시배경음악.mp3",true);
 	private Music gameMusic = new Music("통통톡톡.mp3",true);
+	BattleManager battleManager;
 	private int newcardx=100;
 	private int mouseX,mouseY;//마우스의 위치
 	private Image selectedImage;
@@ -455,6 +456,7 @@ public class PreGame extends JFrame{
 	public void backTomainFromDeck() {
 		isMainScreen=true;
 		isGameScreen=false;
+
 		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
@@ -471,6 +473,7 @@ public class PreGame extends JFrame{
 		introMusic.start();
 		isMainScreen=true;
 		isGameScreen=false;
+		battleManager.setIsgame(false);
 		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
@@ -481,6 +484,7 @@ public class PreGame extends JFrame{
 		newfb3.setVisible(false);
 		newfb4.setVisible(false);
 		mainButton.setVisible(false);
+
 		la.setVisible(false);
 
 		//deck.deck.clear();
@@ -545,7 +549,11 @@ public class PreGame extends JFrame{
 		////////////////////////
 		gameState.set(WHOSTURN,1);
 		isGameScreen = true;
+
 		gameState.set(GOLD, 10);
+		battleManager = new BattleManager(gameState,field,enemyfield,player1,player2);
+		battleManager.start();
+		battleManager.setIsgame(true);
 		la = new JLabel("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+" 플레이어 남은체력: "+player1.getHealth()+" 적 남은 체력: "+player2.getHealth());
 		la.setVisible(true);
 		la.setLocation(800, 50);
@@ -579,6 +587,7 @@ public class PreGame extends JFrame{
 	}
 	public void turn() {//ai게임하는 턴이므로 주의할것.
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
+			gameState.set(NOWTURN, DRAWPHASE);
 			//드로우&세팅페이즈
 			draw();
 			for(Card card:field.field){
@@ -587,7 +596,7 @@ public class PreGame extends JFrame{
 			int nowgold = gameState.get(GOLD);
 			//gameState.set(GOLD, nowgold + 1); 턴마다 골드획득은 헷갈리니까 삭제
 			gameState.set(ACT, 3);// 두번 설정하므로 주의.
-			gameState.set(NOWTURN, 1);
+			gameState.set(NOWTURN, MAINPHASE);
 			////////
 			//메인페이즈
 
@@ -618,6 +627,12 @@ public class PreGame extends JFrame{
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb, 1);
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb, 1);
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb, 1);
+				enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb.setVisible(true);
+				enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb.setVisible(true);
+				enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb.setVisible(true);
+				enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb.setBounds(enemyfield.field.get(enemyfield.getfieldsize() - 1).x,enemyfield.field.get(enemyfield.getfieldsize() - 1).y,150,230);
+				enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb.setBounds(enemyfield.field.get(enemyfield.getfieldsize() - 1).getX()+5,enemyfield.field.get(enemyfield.getfieldsize() - 1).getY()+210,15,10);
+				enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb.setBounds(enemyfield.field.get(enemyfield.getfieldsize() - 1).getX()+130,enemyfield.field.get(enemyfield.getfieldsize() - 1).getY()+210,15,10);
 
 			}
 			battlePhase();
@@ -686,7 +701,8 @@ public class PreGame extends JFrame{
 				checkcardx();
 				newcardx-=200;
 			}
-			if(gameState.get(0)<=0){
+			if(gameState.get(0)==0){
+				gameState.set(0,-1);
 				battlePhase();
 			}
 			if(player1.getHealth()==0){
@@ -694,6 +710,14 @@ public class PreGame extends JFrame{
 			}
 			if(player2.getHealth()==0){
 				backToMain();
+			}
+			//수정요
+			if(isGameScreen) {
+				if (gameState.get(NOWTURN) == ENDPHASE) {
+					if(isGameScreen) {
+						endPhase();
+					}
+				}
 			}
 			//////
 		}
@@ -869,51 +893,8 @@ public class PreGame extends JFrame{
 	}
 
 	public void battlePhase() {//ai용 배틀페이즈임
-		if (gameState.get(WHOSTURN) == gameState.get(WHOAMI)) {
-			for (Card card : field.field) {
-				card.attack(player2, enemyfield);
-				/////////////////////////
-				/*
-				boolean directattck = true;
-				for(int i=0;i<enemyfield.getfieldsize();i++){
-					if(card.fieldnum==enemyfield.field.get(i).fieldnum){
-						card.attack(enemyfield.field.get(i));
-						directattck=false;
-					}
-				}
-				if(directattck) {
-					if (gameState.get(WHOAMI) == 1) {
-						card.attack(player2);
-					} else {
-						card.attack(player1);
-					}
-				}
-				*/
-				///////////////////////////
-			}
-			gameState.set(0,-1);
-		}
-		else{
-
-			for (Enemycard enemycard : enemyfield.field){
-				boolean directattck = true;
-				for(Card card : field.field){
-					if(card.fieldnum==enemycard.fieldnum && enemycard.getHp()>0){
-						card.attacked(enemycard.getAd());
-						System.out.println(enemycard.getAd()+"만큼 공격함!");
-						directattck=false;
-					}
-
-				}
-				if(directattck) {
-					player1.decreaseHealth(enemycard.getAd());
-
-				}
-			}
-
-		}
-
-		endPhase();
+		System.out.println("제발");
+		gameState.set(NOWTURN,BATTLEPHASE);
 	}
 	/*pvp배틀페이즈
 	public void battlePhase() {
@@ -933,6 +914,7 @@ public class PreGame extends JFrame{
 	 */
 
 	public void endPhase() {
+		System.out.println("123123123");
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
 			if(gameState.get(WHOAMI)==1){
 				gameState.set(WHOSTURN, 2);
@@ -947,6 +929,7 @@ public class PreGame extends JFrame{
 			gameState.set(0,3);
 		}
 		System.out.println(gameState.get(WHOSTURN)+"의 차례");
+		gameState.set(NOWTURN,DRAWPHASE);
 		turn();
 	}
 }

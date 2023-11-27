@@ -16,7 +16,7 @@ public class Card extends Thread{
 	int newcardx;
 	int fieldnum;
 	int hp;
-
+	Music sm;
 	ArrayList<Integer> gameState;
 	Field field;
 	Enemyfield enemyfield;
@@ -28,6 +28,9 @@ public class Card extends Thread{
 	JLabel cardHpLb;
 	Player player2;
 	Player player1;
+	public void setSm(Music sm){
+		this.sm = sm;
+	}
 	public Player getPlayer2() {
 		return player2;
 	}
@@ -246,6 +249,7 @@ public class Card extends Thread{
 
 
 	public void sommon() {
+		sm.start();
 		//오버라이딩
 	}
 

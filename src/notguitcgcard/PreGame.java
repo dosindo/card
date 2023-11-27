@@ -61,7 +61,7 @@ public class PreGame extends JFrame{
 	//private boolean isDeckScreen = false;
 	private boolean isGameScreen = false;
 	private Music introMusic = new Music("임시배경음악.mp3",true);
-	private Music gameMusic = new Music("통통톡톡.mp3",true);
+	private Music gameMusic = new Music("배틀브금.mp3",true);
 	BattleManager battleManager;
 	private int newcardx=100;
 	private int mouseX,mouseY;//마우스의 위치
@@ -604,7 +604,7 @@ public class PreGame extends JFrame{
 		newfb3.setVisible(true);
 		newfb4.setVisible(true);
 		goldButton.setVisible(true);
-		gameMusic = new Music("통통톡톡.mp3",true);
+		gameMusic = new Music("배틀브금.mp3",true);
 		gameMusic.start();
 		gameState.clear();
 		gameState.add(1);
@@ -865,6 +865,9 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Nyangs());
 		deck.toDeck(new Wills());
 		deck.toDeck(new Wills());
+		for(Card card:deck.deck){
+			card.setSm(new Music("deck3.mp3",false));
+		}
 	}
 	public void makeDeck2(){
 		deck.deck.clear();
@@ -892,7 +895,9 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Hercules());
 		deck.toDeck(new SquolMeterol());
 		deck.toDeck(new SquolMeterol());
-
+		for(Card card:deck.deck){
+			card.setSm(new Music("deck2.mp3",false));
+		}
 	}
 	public void makeDeck1(){
 		deck.deck.clear();
@@ -920,6 +925,9 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Thief());
 		deck.toDeck(new Wizard());
 		deck.toDeck(new Wizard());
+		for(Card card:deck.deck){
+			card.setSm(new Music("deck1.mp3",false));
+		}
 	}
 
 	public void makeDeck3ex(){

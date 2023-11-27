@@ -80,6 +80,7 @@ public class PreGame extends JFrame{
 
 	final int P1 = 1;
 	final int P2 = 2;
+
 	ArrayList<Card> allCard = new ArrayList<Card>();
 	ArrayList<Integer> gameState = new ArrayList<Integer>();
 	//게임 상태를 저장하는 arraylist임.
@@ -503,7 +504,13 @@ public class PreGame extends JFrame{
 		enemyfield.field.clear();
 	}
 	public void gameStart() {
-		makeDeck3();
+		if(nowDeck==1){
+			makeDeck1();
+		} else if (nowDeck==2) {
+			makeDeck2();
+		}else if (nowDeck==3){
+			makeDeck3();
+		}
 		newcardx = 100;
 		player2.setHealth(45);
 		player1.setHealth(45);
@@ -588,6 +595,7 @@ public class PreGame extends JFrame{
 			System.out.println("내턴");
 		}
 		else{
+
 			int fieldnum;
 			if(enemyfield.getfieldsize()<4) {
 				while(true) {
@@ -602,14 +610,15 @@ public class PreGame extends JFrame{
 						break;
 					}
 				}
-				int cn = (int) (Math.random() * 9) + 1;
-				enemyfield.toField("card"+cn, 2+10-cn, cn, fieldnum);
+				int cn = (int) (Math.random() * 11) + 1;
+				enemyfield.toField("ai"+cn, 2+10-cn, (int)(cn/2)+1, fieldnum);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb);
 				add(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb);
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardb, 1);
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardAdLb, 1);
 				container.setComponentZOrder(enemyfield.field.get(enemyfield.getfieldsize() - 1).cardHpLb, 1);
+
 			}
 			battlePhase();
 		}
@@ -885,10 +894,11 @@ public class PreGame extends JFrame{
 			gameState.set(0,-1);
 		}
 		else{
+
 			for (Enemycard enemycard : enemyfield.field){
 				boolean directattck = true;
 				for(Card card : field.field){
-					if(card.fieldnum==enemycard.fieldnum){
+					if(card.fieldnum==enemycard.fieldnum && enemycard.getHp()>0){
 						card.attacked(enemycard.getAd());
 						System.out.println(enemycard.getAd()+"만큼 공격함!");
 						directattck=false;

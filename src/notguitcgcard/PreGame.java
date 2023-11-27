@@ -603,7 +603,7 @@ public class PreGame extends JFrame{
 		isMainScreen = false;
 		startButton.setVisible(false);
 		deckScreenButton.setVisible(false);
-		Background = new ImageIcon(Main.class.getResource("../images/임시배경2.jpg")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/게임진행2.png")).getImage();
 
 		hand.hand.clear();
 		field.field.clear();

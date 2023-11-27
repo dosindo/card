@@ -591,19 +591,10 @@ public class PreGame extends JFrame{
 	public void gameStart() {
 		if(nowDeck==1){
 			makeDeck1();
-			ourBoss1.setVisible(true);
-			ourBoss1.setBounds(850,325,150,170);
-			add(ourBoss1);//jframe에 추가
 		} else if (nowDeck==2) {
 			makeDeck2();
-			ourBoss2.setVisible(true);
-			ourBoss2.setBounds(850,325,150,170);
-			add(ourBoss2);//jframe에 추가
 		}else if (nowDeck==3){
 			makeDeck3();
-			ourBoss3.setVisible(true);
-			ourBoss3.setBounds(850,325,150,170);
-			add(ourBoss3);//jframe에 추가
 		}
 		newcardx = 100;
 		player2.setHealth(45);
@@ -644,9 +635,9 @@ public class PreGame extends JFrame{
 		battleManager = new BattleManager(gameState,field,enemyfield,player1,player2);
 		battleManager.start();
 		battleManager.setIsgame(true);
-		la1 = new JLabel("남은 행동: "+gameState.get(0));
+		la1 = new JLabel(""+gameState.get(0));
 		la1.setVisible(true);
-		la1.setLocation(800, 50);
+		la1.setLocation(1000, 50);
 		la1.setSize(500, 50);
 		add(la1);
 
@@ -656,18 +647,17 @@ public class PreGame extends JFrame{
 		la2.setSize(500, 50);
 		add(la2);
 
-		la3 = new JLabel(" 플레이어 남은체력: "+player1.getHealth());
+		la3 = new JLabel(""+player1.getHealth());
 		la3.setVisible(true);
-		la3.setLocation(800, 70);
+		la3.setLocation(965, 436);
 		la3.setSize(500, 50);
 		add(la3);
 
-		la4 = new JLabel(" 적 남은 체력: "+player2.getHealth());
+		la4 = new JLabel(""+player2.getHealth());
 		la4.setVisible(true);
-		la4.setLocation(800, 80);
+		la4.setLocation(1165, 205);
 		la4.setSize(500, 50);
 		add(la4);
-
 		for(int i=0;i<deck.deck.size();i++) {
 			deck.deck.get(i).start();
 			System.out.println(deck.deck.get(i).getCardName());
@@ -715,6 +705,19 @@ public class PreGame extends JFrame{
 		enemyBoss.setVisible(true);
 		enemyBoss.setBounds(1050,95,150,170);
 		add(enemyBoss);//jframe에 추가
+		if(nowDeck==1){
+			ourBoss1.setVisible(true);
+			ourBoss1.setBounds(850,325,150,170);
+			add(ourBoss1);//jframe에 추가
+		} else if (nowDeck==2) {
+			ourBoss2.setVisible(true);
+			ourBoss2.setBounds(850,325,150,170);
+			add(ourBoss2);//jframe에 추가
+		}else if (nowDeck==3){
+			ourBoss3.setVisible(true);
+			ourBoss3.setBounds(850,325,150,170);
+			add(ourBoss3);//jframe에 추가
+		}
 
 	}
 	public void turn() {//ai게임하는 턴이므로 주의할것.
@@ -803,7 +806,7 @@ public class PreGame extends JFrame{
 			g.drawImage(selectedImage, 340, 100, null);//단순 이미지!!
 			g.drawImage(titleImage, 340, 70, null);
 		}
-		
+
 		if(isGameScreen) {
 			g.drawImage(deckimage,1100,720-230,null);
 			g.drawImage(field1image,200,300-230,null);
@@ -826,10 +829,10 @@ public class PreGame extends JFrame{
 				enemyfield.field.get(i).cardAdLb.setBounds(enemyfield.field.get(i).getX()+5,enemyfield.field.get(i).getY()+210,15,10);
 				enemyfield.field.get(i).cardHpLb.setBounds(enemyfield.field.get(i).getX()+130,enemyfield.field.get(i).getY()+210,15,10);
 			}
-			la1.setText("남은 행동: "+gameState.get(0));
-			la2.setText("남은 골드: "+gameState.get(5));
-			la3.setText("플레이어 남은체력: "+player1.getHealth());
-			la4.setText("적 남은 체력: "+player2.getHealth());
+			la1.setText(""+gameState.get(0));
+			la2.setText(""+gameState.get(5));
+			la3.setText(""+player1.getHealth());
+			la4.setText(""+player2.getHealth());
 
 			//////렉걸리면 이부분 스레드 따로해야함
 			if(gameState.get(4)==1) {

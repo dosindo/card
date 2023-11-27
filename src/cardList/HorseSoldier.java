@@ -38,9 +38,13 @@ public class HorseSoldier extends Card{
 
     }
     public void attack(Player player, Enemyfield enemyfield) {
+        setAtmname("deck1.mp3");
+        getAtm().start();
+        setatm(new Music(getAtmname(),false));
         boolean directattck = true;
         for(int i=0;i<enemyfield.getfieldsize() ;i++){
             if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
+
                 int eneHp = enemyfield.field.get(i).getHp();
                 eneHp-=getAd();
                 enemyfield.field.get(i).setHp(eneHp);

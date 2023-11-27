@@ -1,10 +1,7 @@
 package cardList;
 import javax.swing.ImageIcon;
 
-import notguitcgcard.Card;
-import notguitcgcard.Enemyfield;
-import notguitcgcard.Main;
-import notguitcgcard.Player;
+import notguitcgcard.*;
 
 public class Wizard extends Card{
     private static ImageIcon card1Image = new ImageIcon(Main.class.getResource("../images/마법사.png"));
@@ -37,7 +34,11 @@ public class Wizard extends Card{
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 "+getAd());
     }
+
     public void attack(Player player,Enemyfield enemyfield) {
+        setAtmname("deck1.mp3");
+        getAtm().start();
+        setatm(new Music(getAtmname(),false));
         boolean directattck = true;
         for(int i=0;i<enemyfield.getfieldsize();i++){
 

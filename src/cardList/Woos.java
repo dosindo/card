@@ -43,7 +43,11 @@ public class Woos extends Card {
         player.decreaseHealth(ad);
         System.out.println("공격을 해땅 " + getAd());
     }
+
     public void attack(Player player,Enemyfield enemyfield) {
+        setAtmname("deck1.mp3");
+        getAtm().start();
+        setatm(new Music(getAtmname(),false));
         boolean directattck = true;
         for(int i=0;i<enemyfield.getfieldsize();i++){
             if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
@@ -58,5 +62,8 @@ public class Woos extends Card {
         }
         int i = getHp()+1;
         setHp(i);
+    }
+
+    private void atm(String s, boolean b) {
     }
 }

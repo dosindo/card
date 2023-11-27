@@ -1,10 +1,5 @@
 package notguitcgcard;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -51,7 +46,7 @@ public class PreGame extends JFrame{
 	private ImageIcon toMainImageClicked= new ImageIcon(Main.class.getResource("../images/메인으로_클릭.png"));
 
 
-	private Image deckimage = new ImageIcon(Main.class.getResource("../images/deck.png")).getImage();
+	private Image deckimage = new ImageIcon(Main.class.getResource("../images/카드뒷면.png")).getImage();
 	private Image field1image = new ImageIcon(Main.class.getResource("../images/field1.png")).getImage();
 
 	private JButton startButton = new JButton(startButtonBasicImage);
@@ -636,26 +631,35 @@ public class PreGame extends JFrame{
 		battleManager.start();
 		battleManager.setIsgame(true);
 		la1 = new JLabel(""+gameState.get(0));
+		la1.setFont(new Font("Arial", Font.BOLD, 20));
+		la1.setForeground(Color.WHITE);
 		la1.setVisible(true);
 		la1.setLocation(1000, 50);
 		la1.setSize(500, 50);
 		add(la1);
 
-		la2 = new JLabel(" 남은 골드: "+gameState.get(5));
+		la2 = new JLabel(""+gameState.get(5));
+		la2.setFont(new Font("Arial", Font.BOLD, 20));
+		la2.setForeground(Color.WHITE);
 		la2.setVisible(true);
 		la2.setLocation(800, 60);
 		la2.setSize(500, 50);
 		add(la2);
 
 		la3 = new JLabel(""+player1.getHealth());
+		la3.setFont(new Font("Arial", Font.BOLD, 20));
+		// 텍스트 색상 변경
+		la3.setForeground(Color.WHITE);
 		la3.setVisible(true);
-		la3.setLocation(965, 436);
+		la3.setLocation(962, 440);
 		la3.setSize(500, 50);
 		add(la3);
 
 		la4 = new JLabel(""+player2.getHealth());
+		la4.setFont(new Font("Arial", Font.BOLD, 20));
+		la4.setForeground(Color.WHITE);
 		la4.setVisible(true);
-		la4.setLocation(1165, 205);
+		la4.setLocation(1162, 209);
 		la4.setSize(500, 50);
 		add(la4);
 		for(int i=0;i<deck.deck.size();i++) {

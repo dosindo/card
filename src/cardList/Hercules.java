@@ -44,6 +44,7 @@ public class Hercules extends Card {
         System.out.println("공격을 해땅 " + getAd());
     }
     public void sommon(){
+        getSm().start();
         Field field = getField();
         for(Card card: field.field){
             int r = card.getHp()-99;

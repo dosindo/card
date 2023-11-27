@@ -17,6 +17,8 @@ public class Card extends Thread{
 	int fieldnum;
 	int hp;
 	Music sm;
+	String atmname;
+	Music atm;
 	ArrayList<Integer> gameState;
 	Field field;
 	Enemyfield enemyfield;
@@ -28,8 +30,19 @@ public class Card extends Thread{
 	JLabel cardHpLb;
 	Player player2;
 	Player player1;
+
+	public void setAtmname(String atmname) {
+		this.atmname = atmname;
+	}
+	public String getAtmname(){
+		return atmname;
+	}
 	public void setSm(Music sm){
 		this.sm = sm;
+	}
+
+	public void setatm(Music atm){
+		this.atm = atm;
 	}
 	public Player getPlayer2() {
 		return player2;
@@ -216,8 +229,20 @@ public class Card extends Thread{
 	public int getFieldnum(){
 		return this.fieldnum;
 	}
+	public Music getAtm(){
+			return atm;
+	}
 
-	public void attack(Player player,Enemyfield enemyfield) {
+	public Music getSm() {
+		return sm;
+	}
+
+
+	public void attack(Player player, Enemyfield enemyfield) {
+		    setAtmname("deck1.mp3");
+			atm.start();
+
+		setatm(new Music(getAtmname(),false));
 		boolean directattck = true;
 		for(int i=0;i<enemyfield.getfieldsize();i++){
 			if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
@@ -229,7 +254,9 @@ public class Card extends Thread{
 		}
 		if(directattck) {
 			player.decreaseHealth(getAd());
+
 		}
+
 	}
 	public void mainEffect(Field field, Enemyfield enemyfield){
 		return;

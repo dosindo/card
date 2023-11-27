@@ -44,6 +44,7 @@ public class Welchs extends Card {
         System.out.println("공격을 해땅 " + getAd());
     }
     public void attacked(int dam){
+
         int nowhp = getHp()-dam;
         if(nowhp<=0) {
             getGameState().set(5, getGameState().get(5) + 5);

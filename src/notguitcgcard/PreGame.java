@@ -364,6 +364,8 @@ public class PreGame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				mainButton.setIcon(toMainImageClicked);
 				mainButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("bentered.mp3",false);
+				buttonEnteredMusic.start();
 			}
 
 			@Override
@@ -374,6 +376,8 @@ public class PreGame extends JFrame{
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				Music buttonEnteredMusic = new Music("tfile.mp3",false);
+				buttonEnteredMusic.start();
 				backTomainFromDeck();
 			}
 		});
@@ -385,6 +389,8 @@ public class PreGame extends JFrame{
 		deck1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				Music buttonEnteredMusic = new Music("tfile.mp3",false);
+				buttonEnteredMusic.start();
 				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
 				nowDeck = 1;
 				for(Card card : deck.deck){
@@ -397,6 +403,8 @@ public class PreGame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				deck1.setIcon(deck1clicked);
 				deck1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("bentered.mp3",false);
+				buttonEnteredMusic.start();
 				makeDeck1ex();
 				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
 				printDeck();
@@ -414,7 +422,9 @@ public class PreGame extends JFrame{
 		deck2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
+				Music buttonEnteredMusic = new Music("tfile.mp3",false);
+				buttonEnteredMusic.start();
+				// deck1 버튼을 클릭하면 nowdeck 값을 2로 설정
 				nowDeck = 2;
 				for(Card card : deck.deck){
 					card.setState("inscreen");
@@ -426,6 +436,8 @@ public class PreGame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				deck2.setIcon(deck2clicked);
 				deck2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("bentered.mp3",false);
+				buttonEnteredMusic.start();
 				makeDeck2ex();
 				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
 				printDeck();
@@ -443,7 +455,9 @@ public class PreGame extends JFrame{
 		deck3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
+				Music buttonEnteredMusic = new Music("tfile.mp3",false);
+				buttonEnteredMusic.start();
+				// deck1 버튼을 클릭하면 nowdeck 값을 3로 설정
 				nowDeck = 3;
 				for(Card card : deck.deck){
 					card.setState("inscreen");
@@ -455,6 +469,8 @@ public class PreGame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				deck3.setIcon(deck3clicked);
 				deck3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("bentered.mp3",false);
+				buttonEnteredMusic.start();
 				makeDeck3ex();
 				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
 				printDeck();
@@ -634,6 +650,8 @@ public class PreGame extends JFrame{
 			public void mouseEntered(MouseEvent e) {
 				mainButton.setIcon(toMainImageClicked);
 				mainButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Music buttonEnteredMusic = new Music("bentered.mp3",false);
+				buttonEnteredMusic.start();
 			}
 
 			@Override
@@ -644,6 +662,8 @@ public class PreGame extends JFrame{
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				Music buttonEnteredMusic = new Music("tfile.mp3",false);
+				buttonEnteredMusic.start();
 				backToMain();
 			}
 		});

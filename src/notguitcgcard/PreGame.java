@@ -456,6 +456,7 @@ public class PreGame extends JFrame{
 	public void backTomainFromDeck() {
 		isMainScreen=true;
 		isGameScreen=false;
+
 		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
@@ -472,6 +473,7 @@ public class PreGame extends JFrame{
 		introMusic.start();
 		isMainScreen=true;
 		isGameScreen=false;
+		battleManager.setIsgame(false);
 		Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();
 		startButton.setVisible(true);
 		deckScreenButton.setVisible(true);
@@ -482,6 +484,7 @@ public class PreGame extends JFrame{
 		newfb3.setVisible(false);
 		newfb4.setVisible(false);
 		mainButton.setVisible(false);
+
 		la.setVisible(false);
 
 		//deck.deck.clear();
@@ -546,9 +549,11 @@ public class PreGame extends JFrame{
 		////////////////////////
 		gameState.set(WHOSTURN,1);
 		isGameScreen = true;
+
 		gameState.set(GOLD, 10);
 		battleManager = new BattleManager(gameState,field,enemyfield,player1,player2);
 		battleManager.start();
+		battleManager.setIsgame(true);
 		la = new JLabel("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+" 플레이어 남은체력: "+player1.getHealth()+" 적 남은 체력: "+player2.getHealth());
 		la.setVisible(true);
 		la.setLocation(800, 50);
@@ -706,8 +711,13 @@ public class PreGame extends JFrame{
 			if(player2.getHealth()==0){
 				backToMain();
 			}
-			if(gameState.get(NOWTURN)==ENDPHASE){
-				endPhase();
+			//수정요
+			if(isGameScreen) {
+				if (gameState.get(NOWTURN) == ENDPHASE) {
+					if(isGameScreen) {
+						endPhase();
+					}
+				}
 			}
 			//////
 		}

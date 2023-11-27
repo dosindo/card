@@ -8,6 +8,7 @@ public class BattleManager extends Thread{
     Enemyfield enemyfield;
     Player player1;
     Player player2;
+    boolean isgame = false;
     BattleManager(ArrayList<Integer> gamestate, Field field, Enemyfield enemyfield, Player player1, Player player2){
         this.gameState = gamestate;
         this.field = field;
@@ -16,9 +17,13 @@ public class BattleManager extends Thread{
         this.player2 = player2;
     }
 
+    public void setIsgame(boolean isgame) {
+        this.isgame = isgame;
+    }
+
     @Override
     public void run() {
-        while(true){
+        while(isgame){
             if(gameState.get(1)==2){
                 if (gameState.get(6) == gameState.get(7)) {
                     for (Card card : field.field) {

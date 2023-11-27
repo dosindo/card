@@ -52,7 +52,7 @@ public class Spearman extends Card{
 
         if(directattck) {
             player.decreaseHealth(getAd());
-
+            setAd(i+1);
         }
         setAd(i+1);
     }

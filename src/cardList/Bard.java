@@ -55,8 +55,6 @@ public class Bard extends Card{
         if(directattck) {
             player.decreaseHealth(getAd());
         }
-        int i=getHp()+2;
-        setHp(i);
 
     }
 }

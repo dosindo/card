@@ -36,7 +36,7 @@ public class Priest extends Card{
     }
     public void mainEffect(Field field, Enemyfield enemyfield){
         for(Card card: field.field){
-            int r = card.getHp()+1;
+            int r = card.getHp()+2;
             card.setHp(r);
         }
     }

@@ -45,11 +45,11 @@ public class Hercules extends Card {
     }
     public void sommon(){
         Field field = getField();
-        for(Card card:field.field){
-            if(getFieldnum()!=card.getFieldnum()){
-                attack(getPlayer2(),getEnemyfield());
-            }
+        for(Card card: field.field){
+            int r = card.getHp()-99;
+            card.setHp(r);
         }
     }
+
 
 }

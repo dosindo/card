@@ -40,9 +40,16 @@ public class HorseSoldier extends Card{
     public void attack(Player player, Enemyfield enemyfield) {
         boolean directattck = true;
         for(int i=0;i<enemyfield.getfieldsize() ;i++){
-            if(this.getFieldnum()-1==enemyfield.field.get(i).fieldnum||this.getFieldnum()+1==enemyfield.field.get(i).fieldnum||this.getFieldnum()==enemyfield.field.get(i).fieldnum){
+            if(this.getFieldnum()==enemyfield.field.get(i).fieldnum){
                 int eneHp = enemyfield.field.get(i).getHp();
                 eneHp-=getAd();
+                enemyfield.field.get(i).setHp(eneHp);
+                directattck=false;
+            }
+            else if(this.getFieldnum()-1==enemyfield.field.get(i).fieldnum||this.getFieldnum()+1==enemyfield.field.get(i).fieldnum)
+            {
+                int eneHp = enemyfield.field.get(i).getHp();
+                eneHp-=1;
                 enemyfield.field.get(i).setHp(eneHp);
                 directattck=false;
             }
@@ -54,6 +61,6 @@ public class HorseSoldier extends Card{
             player.decreaseHealth(getAd());
 
         }
-        setAd(i+1);
+
     }
 }

@@ -185,6 +185,9 @@ public class Card extends Thread{
 			System.err.println(e.getMessage());
 		}
 	}
+	public void setY(int y){
+		this.y = y;
+	}
 	public ArrayList<Integer> getGameState(){
 		return gameState;
 	}

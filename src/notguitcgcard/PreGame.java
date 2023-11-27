@@ -53,7 +53,10 @@ public class PreGame extends JFrame{
 	private JButton exitButton = new JButton(exitButtonbasic);
 	private JButton goldButton = new JButton(goldbuttonImage);
 	private JButton deckScreenButton = new JButton(deckscButtonBasicImage);
-	private JLabel la;
+	private JLabel la1;
+	private JLabel la2;
+	private JLabel la3;
+	private JLabel la4;
 	private boolean isMainScreen = false;
 	//private boolean isDeckScreen = false;
 	private boolean isGameScreen = false;
@@ -551,7 +554,10 @@ public class PreGame extends JFrame{
 		newfb4.setVisible(false);
 		mainButton.setVisible(false);
 
-		la.setVisible(false);
+		la1.setVisible(false);
+		la2.setVisible(false);
+		la3.setVisible(false);
+		la4.setVisible(false);
 
 		//deck.deck.clear();
 		for(Card card : hand.hand){
@@ -620,11 +626,29 @@ public class PreGame extends JFrame{
 		battleManager = new BattleManager(gameState,field,enemyfield,player1,player2);
 		battleManager.start();
 		battleManager.setIsgame(true);
-		la = new JLabel("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+" 플레이어 남은체력: "+player1.getHealth()+" 적 남은 체력: "+player2.getHealth());
-		la.setVisible(true);
-		la.setLocation(800, 50);
-		la.setSize(500, 50);
-		add(la);
+		la1 = new JLabel("남은 행동: "+gameState.get(0));
+		la1.setVisible(true);
+		la1.setLocation(800, 50);
+		la1.setSize(500, 50);
+		add(la1);
+
+		la2 = new JLabel(" 남은 골드: "+gameState.get(5));
+		la2.setVisible(true);
+		la2.setLocation(800, 60);
+		la2.setSize(500, 50);
+		add(la2);
+
+		la3 = new JLabel(" 플레이어 남은체력: "+player1.getHealth());
+		la3.setVisible(true);
+		la3.setLocation(800, 70);
+		la3.setSize(500, 50);
+		add(la3);
+
+		la4 = new JLabel(" 적 남은 체력: "+player2.getHealth());
+		la4.setVisible(true);
+		la4.setLocation(800, 80);
+		la4.setSize(500, 50);
+		add(la4);
 		
 		for(int i=0;i<deck.deck.size();i++) {
 			deck.deck.get(i).start();
@@ -780,7 +804,11 @@ public class PreGame extends JFrame{
 				enemyfield.field.get(i).cardAdLb.setBounds(enemyfield.field.get(i).getX()+5,enemyfield.field.get(i).getY()+210,15,10);
 				enemyfield.field.get(i).cardHpLb.setBounds(enemyfield.field.get(i).getX()+130,enemyfield.field.get(i).getY()+210,15,10);
 			}
-			la.setText("남은 행동: "+gameState.get(0)+" 남은 골드: "+gameState.get(5)+"\n플레이어 남은체력: "+player1.getHealth()+"\n적 남은 체력: "+player2.getHealth());
+			la1.setText("남은 행동: "+gameState.get(0));
+			la2.setText("남은 골드: "+gameState.get(5));
+			la3.setText("플레이어 남은체력: "+player1.getHealth());
+			la4.setText("적 남은 체력: "+player2.getHealth());
+
 			//////렉걸리면 이부분 스레드 따로해야함
 			if(gameState.get(4)==1) {
 				gameState.set(4, 0);

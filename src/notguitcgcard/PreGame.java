@@ -239,7 +239,7 @@ public class PreGame extends JFrame{
 		add(deckScreenButton);
 
 
-		goldButton.setBounds(1200,50,60,20);
+		goldButton.setBounds(1130,365,60,20);
 		goldButton.setBorderPainted(false);
 		goldButton.setContentAreaFilled(false);
 		goldButton.setFocusPainted(false);
@@ -598,7 +598,7 @@ public class PreGame extends JFrame{
 		isMainScreen = false;
 		startButton.setVisible(false);
 		deckScreenButton.setVisible(false);
-		Background = new ImageIcon(Main.class.getResource("../images/게임진행2.png")).getImage();
+		Background = new ImageIcon(Main.class.getResource("../images/게임진행4.png")).getImage();
 
 		hand.hand.clear();
 		field.field.clear();
@@ -634,7 +634,7 @@ public class PreGame extends JFrame{
 		la1.setFont(new Font("Arial", Font.BOLD, 20));
 		la1.setForeground(Color.WHITE);
 		la1.setVisible(true);
-		la1.setLocation(1000, 50);
+		la1.setLocation(1057, 410);
 		la1.setSize(500, 50);
 		add(la1);
 
@@ -642,7 +642,7 @@ public class PreGame extends JFrame{
 		la2.setFont(new Font("Arial", Font.BOLD, 20));
 		la2.setForeground(Color.WHITE);
 		la2.setVisible(true);
-		la2.setLocation(800, 60);
+		la2.setLocation(1055, 348);
 		la2.setSize(500, 50);
 		add(la2);
 

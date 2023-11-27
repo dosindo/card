@@ -28,7 +28,12 @@ public class PreGame extends JFrame{
 
 	private Image Background = new ImageIcon(Main.class.getResource("../images/backback.jpg")).getImage();//인트로 사진저장
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menubar.png")));
-	
+	private JLabel enemyBoss = new JLabel(new ImageIcon(Main.class.getResource("../images/적_플레이.png")));
+	// 동물_플레이, 곤충_플레이, 인간_플레이 3개! .png
+	private JLabel ourBoss1 = new JLabel(new ImageIcon(Main.class.getResource("../images/인간_플레이.png")));
+	private JLabel ourBoss2 = new JLabel(new ImageIcon(Main.class.getResource("../images/곤충_플레이.png")));
+	private JLabel ourBoss3 = new JLabel(new ImageIcon(Main.class.getResource("../images/동물_플레이.png")));
+
 	private ImageIcon exitButtonbasic = new ImageIcon(Main.class.getResource("../images/closeingbutten.png"));
 	private ImageIcon exitButtonentered = new ImageIcon(Main.class.getResource("../images/closebutten.png"));
 	private ImageIcon startButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/startbuttonEnter.png"));
@@ -36,16 +41,16 @@ public class PreGame extends JFrame{
 	private ImageIcon deckscButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/deckButtonEnter.png"));
 	private ImageIcon deckscButtonBasicImage = new ImageIcon(Main.class.getResource("../images/deckButton.png"));
 	private ImageIcon goldbuttonImage = new ImageIcon(Main.class.getResource("../images/골드획득.png"));
-	private ImageIcon deck1BestImage = new ImageIcon(Main.class.getResource("../images/마법사_덱.png"));
-	private ImageIcon deck2BestImage = new ImageIcon(Main.class.getResource("../images/거미_덱.png"));
-	private ImageIcon deck3BestImage = new ImageIcon(Main.class.getResource("../images/토끼_덱.png"));
+	private ImageIcon deck1BestImage = new ImageIcon(Main.class.getResource("../images/인간_대표.png"));
+	private ImageIcon deck2BestImage = new ImageIcon(Main.class.getResource("../images/곤충_대표.png"));
+	private ImageIcon deck3BestImage = new ImageIcon(Main.class.getResource("../images/동물_대표.png"));
 	private ImageIcon toMainImage = new ImageIcon(Main.class.getResource("../images/메인으로.png"));
-	private ImageIcon deck1clicked = new ImageIcon(Main.class.getResource("../images/마법사_클릭.png"));
-	private ImageIcon deck2clicked = new ImageIcon(Main.class.getResource("../images/거미_클릭.png"));
-	private ImageIcon deck3clicked = new ImageIcon(Main.class.getResource("../images/토끼_클릭.png"));
+	private ImageIcon deck1clicked = new ImageIcon(Main.class.getResource("../images/인간_대표_클릭.png"));
+	private ImageIcon deck2clicked = new ImageIcon(Main.class.getResource("../images/곤충_대표_클릭.png"));
+	private ImageIcon deck3clicked = new ImageIcon(Main.class.getResource("../images/동물_대표_클릭.png"));
 	private ImageIcon toMainImageClicked= new ImageIcon(Main.class.getResource("../images/메인으로_클릭.png"));
-	
-	
+
+
 	private Image deckimage = new ImageIcon(Main.class.getResource("../images/deck.png")).getImage();
 	private Image field1image = new ImageIcon(Main.class.getResource("../images/field1.png")).getImage();
 
@@ -67,18 +72,18 @@ public class PreGame extends JFrame{
 	private int mouseX,mouseY;//마우스의 위치
 	private Image selectedImage;
 	private Image titleImage;
-	
+
 	Container container = getContentPane();
 	int nowDeck=1;
 	final int SCREEN_WIDTH = 1280; //1540;
 	final int SCREEN_HEIGHT = 720; //815;
-	
+
 	final int DRAWPHASE = 0;
 	final int MAINPHASE = 1;
 	final int BATTLEPHASE = 2;
 	final int ENDPHASE = 3;
-	
-	
+
+
 	final int ACT = 0;
 	final int NOWTURN = 1;
 	final int GOLD = 5;
@@ -138,7 +143,7 @@ public class PreGame extends JFrame{
 		Card7 card7 = new Card7();
 		Card8 card8 = new Card8();
 		Card9 card9 = new Card9();
-		
+
 		allCard.add(card1);
 		allCard.add(card2);
 		allCard.add(card3);
@@ -148,7 +153,7 @@ public class PreGame extends JFrame{
 		allCard.add(card7);
 		allCard.add(card8);
 		allCard.add(card9);
-		
+
 		introMusic.start();
 		setUndecorated(true);//메뉴바 안보임
 		setTitle("tcg");
@@ -159,7 +164,7 @@ public class PreGame extends JFrame{
 		setVisible(true);//보이게
 		setBackground(new Color(0,0,50,0));//배경하양
 		setLayout(null);//위치 고정
-		
+
 		exitButton.setBounds(1240,0,30,30);//x,y,크기 1505, 0 ...
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
@@ -174,16 +179,16 @@ public class PreGame extends JFrame{
 			public void mouseExited(MouseEvent e) {
 				exitButton.setIcon(exitButtonbasic);
 				exitButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				
+
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
+
 				System.exit(0);
 			}
 		});
 		add(exitButton);
-		
+
 		startButton.setBounds(100,420,400,100); // 590, 400,...
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
@@ -200,7 +205,7 @@ public class PreGame extends JFrame{
 			public void mouseExited(MouseEvent e) {
 				startButton.setIcon(startButtonBasicImage);
 				startButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				
+
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -210,7 +215,7 @@ public class PreGame extends JFrame{
 			}
 		});
 		add(startButton);
-		
+
 		deckScreenButton.setBounds(100,550,400,100); // 590 ...
 		deckScreenButton.setBorderPainted(false);
 		deckScreenButton.setContentAreaFilled(false);
@@ -227,7 +232,7 @@ public class PreGame extends JFrame{
 			public void mouseExited(MouseEvent e) {
 				deckScreenButton.setIcon(deckscButtonBasicImage);
 				deckScreenButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				
+
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -237,9 +242,9 @@ public class PreGame extends JFrame{
 			}
 		});
 		add(deckScreenButton);
-		
-		
-		goldButton.setBounds(1080,200,60,20);
+
+
+		goldButton.setBounds(1200,50,60,20);
 		goldButton.setBorderPainted(false);
 		goldButton.setContentAreaFilled(false);
 		goldButton.setFocusPainted(false);
@@ -263,10 +268,10 @@ public class PreGame extends JFrame{
 			}
 		});
 		add(goldButton);
-		
-		
-		
-		
+
+
+
+
 
 		menuBar.setBounds(0,0,1280,30);//위치와 크기 0, 0, 1540...
 		menuBar.addMouseListener(new MouseAdapter() {
@@ -285,7 +290,7 @@ public class PreGame extends JFrame{
 			setLocation(x-mouseX,y-mouseY);
 			}
 		});
-		add(menuBar);//jframe에 추가
+		add(menuBar);
 
 		newfb1.setVisible(false);
 		newfb2.setVisible(false);
@@ -316,7 +321,7 @@ public class PreGame extends JFrame{
 	public void checkcardx() {
 		int nowx = 100;
 		for(int i=0;i<hand.hand.size();i++) {
-			
+
 			if(hand.hand.get(i).state.equals("inhand")) {
 				if(hand.hand.get(i).x!=nowx) {
 				hand.hand.get(i).x=nowx;
@@ -553,6 +558,10 @@ public class PreGame extends JFrame{
 		newfb3.setVisible(false);
 		newfb4.setVisible(false);
 		mainButton.setVisible(false);
+		enemyBoss.setVisible(false);
+		ourBoss1.setVisible(false);
+		ourBoss2.setVisible(false);
+		ourBoss3.setVisible(false);
 
 		la1.setVisible(false);
 		la2.setVisible(false);
@@ -582,10 +591,19 @@ public class PreGame extends JFrame{
 	public void gameStart() {
 		if(nowDeck==1){
 			makeDeck1();
+			ourBoss1.setVisible(true);
+			ourBoss1.setBounds(850,325,150,170);
+			add(ourBoss1);//jframe에 추가
 		} else if (nowDeck==2) {
 			makeDeck2();
+			ourBoss2.setVisible(true);
+			ourBoss2.setBounds(850,325,150,170);
+			add(ourBoss2);//jframe에 추가
 		}else if (nowDeck==3){
 			makeDeck3();
+			ourBoss3.setVisible(true);
+			ourBoss3.setBounds(850,325,150,170);
+			add(ourBoss3);//jframe에 추가
 		}
 		newcardx = 100;
 		player2.setHealth(45);
@@ -595,7 +613,7 @@ public class PreGame extends JFrame{
 		startButton.setVisible(false);
 		deckScreenButton.setVisible(false);
 		Background = new ImageIcon(Main.class.getResource("../images/임시배경2.jpg")).getImage();
-		
+
 		hand.hand.clear();
 		field.field.clear();
 
@@ -649,7 +667,7 @@ public class PreGame extends JFrame{
 		la4.setLocation(800, 80);
 		la4.setSize(500, 50);
 		add(la4);
-		
+
 		for(int i=0;i<deck.deck.size();i++) {
 			deck.deck.get(i).start();
 			System.out.println(deck.deck.get(i).getCardName());
@@ -694,6 +712,10 @@ public class PreGame extends JFrame{
 		});
 
 		add(mainButton);
+		enemyBoss.setVisible(true);
+		enemyBoss.setBounds(1050,95,150,170);
+		add(enemyBoss);//jframe에 추가
+
 	}
 	public void turn() {//ai게임하는 턴이므로 주의할것.
 		if(gameState.get(WHOSTURN)==gameState.get(WHOAMI)) {
@@ -867,7 +889,6 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Wills());
 		for(Card card:deck.deck){
 			card.setSm(new Music("deck3.mp3",false));
-			card.setatm(new Music("deck1.mp3",false));
 		}
 	}
 	public void makeDeck2(){
@@ -898,7 +919,6 @@ public class PreGame extends JFrame{
 		deck.toDeck(new SquolMeterol());
 		for(Card card:deck.deck){
 			card.setSm(new Music("deck2.mp3",false));
-			card.setatm(new Music("deck1.mp3",false));
 		}
 	}
 	public void makeDeck1(){
@@ -929,7 +949,6 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Wizard());
 		for(Card card:deck.deck){
 			card.setSm(new Music("deck1.mp3",false));
-			card.setatm(new Music("deck1.mp3",false));
 		}
 	}
 

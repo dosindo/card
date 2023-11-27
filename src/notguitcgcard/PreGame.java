@@ -36,7 +36,14 @@ public class PreGame extends JFrame{
 	private ImageIcon deckscButtonEnteredImage = new ImageIcon(Main.class.getResource("../images/deckButtonEnter.png"));
 	private ImageIcon deckscButtonBasicImage = new ImageIcon(Main.class.getResource("../images/deckButton.png"));
 	private ImageIcon goldbuttonImage = new ImageIcon(Main.class.getResource("../images/골드획득.png"));
-
+	private ImageIcon deck1BestImage = new ImageIcon(Main.class.getResource("../images/마법사_덱.png"));
+	private ImageIcon deck2BestImage = new ImageIcon(Main.class.getResource("../images/거미_덱.png"));
+	private ImageIcon deck3BestImage = new ImageIcon(Main.class.getResource("../images/토끼_덱.png"));
+	private ImageIcon toMainImage = new ImageIcon(Main.class.getResource("../images/메인으로.png"));
+	private ImageIcon deck1clicked = new ImageIcon(Main.class.getResource("../images/마법사_클릭.png"));
+	private ImageIcon deck2clicked = new ImageIcon(Main.class.getResource("../images/거미_클릭.png"));
+	private ImageIcon deck3clicked = new ImageIcon(Main.class.getResource("../images/토끼_클릭.png"));
+	private ImageIcon toMainImageClicked= new ImageIcon(Main.class.getResource("../images/메인으로_클릭.png"));
 	
 	
 	private Image deckimage = new ImageIcon(Main.class.getResource("../images/deck.png")).getImage();
@@ -102,10 +109,10 @@ public class PreGame extends JFrame{
 	FieldButton newfb3 = new FieldButton(gameState,3);
 	FieldButton newfb4 = new FieldButton(gameState,4);
 
-	JButton deck1;
-	JButton deck2;
-	JButton deck3;
-	JButton mainButton;
+	private JButton deck1;
+	private JButton deck2;
+	private JButton deck3;
+	private JButton mainButton;
 
 	public static void printCard(ArrayList<Card> allCard) {//그냥 콘솔출력임.디버깅용
 		for(int i=0;i<allCard.size();i++) {
@@ -324,24 +331,49 @@ public class PreGame extends JFrame{
 
 
 		// 새로운 버튼 생성
-		deck1 = new JButton("버튼1");
-		deck2 = new JButton("버튼2");
-		deck3 = new JButton("버튼3");
+		deck1 = new JButton(deck1BestImage);
+		deck2 = new JButton(deck2BestImage);
+		deck3 = new JButton(deck3BestImage);
 
 		// 버튼 위치 및 크기 설정
-		deck1.setBounds(50, 50, 100, 50); // 위치와 크기를 원하는 값으로
-		deck2.setBounds(170, 50, 100, 50); // 위치와 크기를 원하는 값으로
-		deck3.setBounds(170, 100, 100, 50); // 위치와 크기를 원하는 값으로
+		deck1.setBounds(130, 100, 150, 170); // 위치와 크기를 원하는 값으로
+		deck1.setBorderPainted(false);
+		deck1.setContentAreaFilled(false);
+		deck1.setFocusPainted(false);
+
+		deck2.setBounds(130, 300, 150, 170); // 위치와 크기를 원하는 값으로
+		deck2.setBorderPainted(false);
+		deck2.setContentAreaFilled(false);
+		deck2.setFocusPainted(false);
+
+		deck3.setBounds(130, 500, 150, 170); // 위치와 크기를 원하는 값으로
+		deck3.setBorderPainted(false);
+		deck3.setContentAreaFilled(false);
+		deck3.setFocusPainted(false);
 
 		// 메인으로 가는 버튼 생성
-		mainButton = new JButton("메인으로");
-		mainButton.setBounds(50, 100, 100, 50); // 위치와 크기를 원하는 값으로
+		mainButton = new JButton(toMainImage);
+		mainButton.setBounds(10, 30, 100, 100); // 위치와 크기를 원하는 값으로
+		mainButton.setBorderPainted(false);
+		mainButton.setContentAreaFilled(false);
+		mainButton.setFocusPainted(false);
 
 		// 메인으로 가는 버튼 이벤트 설정
-		mainButton.addActionListener(new ActionListener() {
+		mainButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 메인으로 가는 버튼을 클릭하면 메소드 호출
+			public void mouseEntered(MouseEvent e) {
+				mainButton.setIcon(toMainImageClicked);
+				mainButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mainButton.setIcon(toMainImage);
+				mainButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
 				backTomainFromDeck();
 			}
 		});
@@ -363,6 +395,8 @@ public class PreGame extends JFrame{
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
+				deck1.setIcon(deck1clicked);
+				deck1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				makeDeck1ex();
 				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
 				printDeck();
@@ -370,6 +404,8 @@ public class PreGame extends JFrame{
 
 			@Override
 			public void mouseExited(MouseEvent e) {
+				deck1.setIcon(deck1BestImage);
+				deck1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				// 마우스가 버튼에서 벗어났을 때 이미지 숨기게 설정
 				dePrintDeck();
 			}
@@ -378,21 +414,28 @@ public class PreGame extends JFrame{
 		deck2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// deck2 버튼을 클릭하면 nowdeck 값을 2로 설정
+				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
 				nowDeck = 2;
+				for(Card card : deck.deck){
+					card.setState("inscreen");
+				}
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
+				deck2.setIcon(deck2clicked);
+				deck2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				makeDeck2ex();
+				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
 				printDeck();
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// 마우스가 버튼에서 벗어났을 때 효과
+				deck2.setIcon(deck2BestImage);
+				deck2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				// 마우스가 버튼에서 벗어났을 때 이미지 숨기게 설정
 				dePrintDeck();
 			}
 		});
@@ -400,21 +443,28 @@ public class PreGame extends JFrame{
 		deck3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// deck3 버튼을 클릭하면 nowdeck 값을 3로 설정
+				// deck1 버튼을 클릭하면 nowdeck 값을 1로 설정
 				nowDeck = 3;
+				for(Card card : deck.deck){
+					card.setState("inscreen");
+				}
 
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
+				deck3.setIcon(deck3clicked);
+				deck3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				makeDeck3ex();
+				// 마우스가 버튼 위에 올라갔을 때 이미지 보이게 설정
 				printDeck();
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// 마우스가 버튼에서 벗어났을 때 효과
+				deck3.setIcon(deck3BestImage);
+				deck3.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				// 마우스가 버튼에서 벗어났을 때 이미지 숨기게 설정
 				dePrintDeck();
 			}
 		});
@@ -572,13 +622,28 @@ public class PreGame extends JFrame{
 		draw();
 		turn();
 
-		mainButton = new JButton("메인으로");
-		mainButton.setBounds(50, 50, 100, 50); // 위치와 크기를 원하는 값으로
+		mainButton = new JButton(toMainImage);
+		mainButton.setBounds(20, 30, 100, 100); // 위치와 크기를 원하는 값으로
+		mainButton.setBorderPainted(false);
+		mainButton.setContentAreaFilled(false);
+		mainButton.setFocusPainted(false);
 
-		mainButton.addActionListener(new ActionListener() {
+		// 메인으로 가는 버튼 이벤트 설정
+		mainButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 메인으로 가는 버튼을 클릭하면 메소드 호출
+			public void mouseEntered(MouseEvent e) {
+				mainButton.setIcon(toMainImageClicked);
+				mainButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mainButton.setIcon(toMainImage);
+				mainButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
 				backToMain();
 			}
 		});

@@ -240,6 +240,7 @@ public class Card extends Thread{
 
 	public void attack(Player player, Enemyfield enemyfield) {
 		    setAtmname("deck1.mp3");
+			setatm(new Music(getAtmname(),false));
 			atm.start();
 
 		setatm(new Music(getAtmname(),false));

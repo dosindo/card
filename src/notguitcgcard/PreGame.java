@@ -891,6 +891,7 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Wills());
 		deck.toDeck(new Wills());
 		for(Card card:deck.deck){
+			card.setAtmname("deck3.mp3");
 			card.setSm(new Music("deck3.mp3",false));
 		}
 	}
@@ -921,6 +922,7 @@ public class PreGame extends JFrame{
 		deck.toDeck(new SquolMeterol());
 		deck.toDeck(new SquolMeterol());
 		for(Card card:deck.deck){
+			card.setAtmname("deck2.mp3");
 			card.setSm(new Music("deck2.mp3",false));
 		}
 	}
@@ -951,6 +953,7 @@ public class PreGame extends JFrame{
 		deck.toDeck(new Wizard());
 		deck.toDeck(new Wizard());
 		for(Card card:deck.deck){
+			card.setAtmname("deck1.mp3");
 			card.setSm(new Music("deck1.mp3",false));
 		}
 	}

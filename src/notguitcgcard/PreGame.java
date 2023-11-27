@@ -601,8 +601,8 @@ public class PreGame extends JFrame{
 			makeDeck3();
 		}
 		newcardx = 100;
-		player2.setHealth(5);
-		player1.setHealth(5);
+		player2.setHealth(45);
+		player1.setHealth(45);
 		introMusic.close();
 		isMainScreen = false;
 		startButton.setVisible(false);

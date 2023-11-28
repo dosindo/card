@@ -24,7 +24,7 @@ public class Amorucci extends Card {
     public int getHp() {
         return hp;
     }
-
+    boolean r = true;
     int cost = 4;
 
     public void setAd(int ad) {
@@ -44,12 +44,12 @@ public class Amorucci extends Card {
         System.out.println("공격을 해땅 " + getAd());
     }
     public void attacked(int dam){
-        int i=1;
+
         int nowhp = getHp()-dam;
-        if (nowhp<=1 && i==1)
+        if (nowhp<=1 && r)
         {
             nowhp=1;
-            i--;
+            r=false;
 
         }
         setHp(nowhp);

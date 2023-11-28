@@ -213,6 +213,7 @@ public class PreGame extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				Music buttonEnteredMusic = new Music("tfile.mp3",false);
 				buttonEnteredMusic.start();
+
 				gameStart();
 			}
 		});
@@ -607,6 +608,7 @@ public class PreGame extends JFrame{
 		isMainScreen = false;
 		startButton.setVisible(false);
 		deckScreenButton.setVisible(false);
+
 		Background = new ImageIcon(Main.class.getResource("../images/게임진행4.png")).getImage();
 
 		hand.hand.clear();
@@ -817,6 +819,7 @@ public class PreGame extends JFrame{
 	}
 	public void screenDraw(Graphics2D g) {
 		g.drawImage(Background, 0, 0, null);//단순이미지 그리기
+
 		if(isMainScreen)
 		{
 			g.drawImage(selectedImage, 340, 100, null);//단순 이미지!!
